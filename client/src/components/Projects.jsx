@@ -1,38 +1,93 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
+import axios from 'axios';
 
-const Projects = () => {
+const ProjectCard = ({ title, description, imageUrl, projectUrl, githubUrl, technologies }) => {
   return (
-    <section id="projects" className="bg-background text-text py-12 border-2 border-green-400">
-      <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-3xl font-heading mb-6">Projects</h2>
-        <div className="space-y-6">
-          <div>
-            <h3 className="text-2xl font-semibold">CareerForge - Job Portal Application</h3>
-            <p>Application provides an efficient solution for job seekers and employers to collaborate in the recruitment process.</p>
-            <p>Users can access the platform from any device with an internet connection, making it convenient to search for jobs or manage recruitment tasks on the go.</p>
-            <p>Component-based architecture, written in JSX, makes it convenient to scale up the application according to future needs.</p>
-            <p className="font-semibold">Technology Used: MERN Stack, REST API, Redux Toolkit, Tailwind CSS, JWT</p>
-          </div>
+    <div className="max-w-md bg-white border-2 border-gray-300 rounded-lg shadow-md overflow-hidden">
+      {/* Image Section */}
+      <div className="relative w-full h-48">
+        <a href={projectUrl}>
+          <img
+            src={imageUrl}
+            alt={title}
+            className="w-full h-full object-cover rounded-t-lg transition-transform duration-300 hover:scale-105"
+          />
+        </a>
+      </div>
 
-          <div>
-            <h3 className="text-2xl font-semibold">Review of the Algorithm Visualization Field</h3>
-            <p>Conducted an in-depth review of the AV field to analyze its evolution and impact on computer science education.</p>
-            <p>Utilized comprehensive research methodologies, including literature reviews, surveys, and case studies, to gather and analyze data from various sources.</p>
-            <p>Presented research findings in academic settings and contributed to discussions on the relevance and potential advancements of AV.</p>
-            <p className="font-semibold">Technology Used: Literature review and analysis techniques</p>
-          </div>
-
-          <div>
-            <h3 className="text-2xl font-semibold">Blog Website</h3>
-            <p>Designed and developed a dynamic blogging website using modern web technologies.</p>
-            <p>Implemented the front-end using React JS, leveraging the power of component-based architecture for a responsive and interactive user interface.</p>
-            <p>Utilized Redux for efficient state management, ensuring seamless data flow and improved user experience.</p>
-            <p className="font-semibold">Technology Used: HTML, React JS, API</p>
-          </div>
+      {/* Content Section */}
+      <div className="p-6 space-y-4">
+        <a href={projectUrl}>
+          <h5 className="text-2xl font-semibold text-gray-800 hover:text-blue-500 transition-all">{title}</h5>
+        </a>
+        <p className="text-sm text-gray-600">{description}</p>
+        
+        {/* Technologies */}
+        <div className="flex flex-wrap gap-2 mt-4">
+          {technologies.map((tag, index) => (
+            <span key={index} className="text-xs text-blue-500 border border-blue-500 rounded-full py-1 px-3">
+              #{tag}
+            </span>
+          ))}
         </div>
       </div>
-    </section>
-  );
-}
 
-export default Projects;
+      {/* Footer Section */}
+      <div className="flex justify-between items-center px-6 pb-4">
+        <a
+          href={githubUrl}
+          className="text-red-500 border border-gray-300 rounded-lg py-2 px-4 text-sm font-semibold hover:bg-red-500 hover:text-white transition-all"
+        >
+          GitHub
+        </a>
+        <a
+          href={projectUrl}
+          className="text-blue-500 border border-blue-500 rounded-lg py-2 px-4 text-sm font-semibold hover:bg-blue-500 hover:text-white transition-all"
+        >
+          Visit Project
+        </a>
+      </div>
+    </div>
+  );
+};
+
+const Project = () => {
+
+  let [data,setData] = useState([]);
+
+  useEffect(()=>{
+    let fetchData = async ()=>{
+      let result = await axios.get("http://localhost:4000/project/get-data")
+      console.log(result.data.payload);
+      let fetchedData = result.data.payload;
+      setData(fetchedData.reverse());
+      console.log(data)
+    }
+
+    fetchData();
+  },[])
+
+
+  return (
+    <div className="min-h-screen bg-slate-100 p-6 space-y-8">
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Projects</h2>
+
+      {/* Project Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {data?.map((project) => (
+          <ProjectCard
+            key={project.title}
+            title={project.title}
+            description={project.description}
+            imageUrl={project.imageUrl}  // Image URL passed here
+            projectUrl={project.projectUrl}
+            githubUrl={project.githubUrl}
+            technologies={project.technologies}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Project;

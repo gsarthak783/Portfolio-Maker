@@ -10,7 +10,9 @@ app.get('/',(req,res)=>{
     res.json({message:'Hi There!'})
 })
 const experience = require('./Api/experienceApi')
+const project = require('./Api/projectApi')
 app.use('/experience', experience)
+app.use('/project',project)
 
 let port = process.env.PORT;
 app.listen(port,()=>{

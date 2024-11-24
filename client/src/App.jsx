@@ -11,6 +11,9 @@ import Experiences from './components/Experiences';
 import ExperienceForm from './components/ExperienceForm';
 import PrivateRoute from '../src/PrivateRoute/PrivateRoute'
 import Dashboard from './components/Dashboard';
+import ProjectForm from './components/ProjectForm';
+import Project from './components/Projects';
+
 
 const App = () => {
   return (
@@ -25,7 +28,9 @@ const App = () => {
         <Route path='login' element={<Login/>} />
         <Route path='register' element={<Register/>} />
         <Route path='experience' element={<Experiences/>} />
+        <Route path='project' element={<Project/>} />
         <Route path='experience-form' element={<PrivateRoute><ExperienceForm/></PrivateRoute>} />
+        <Route path='project-form' element={<PrivateRoute><ProjectForm/></PrivateRoute>} />
         <Route path='dashboard' element={<Dashboard/>} />
 
       </Routes>

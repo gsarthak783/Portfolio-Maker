@@ -33,7 +33,7 @@ const Register = () => {
         <h2 className="text-2xl font-bold text-center mb-6 text-blue-500">Register</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <label className="block text-gray-700">Name</label>
+            <label className="block text-gray-700">First Name</label>
             <input
               type="text"
               {...register("name", { required: true })}

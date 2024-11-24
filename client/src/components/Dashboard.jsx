@@ -57,7 +57,7 @@ const Dashboard = () => {
         {/* Card 2 */}
         <div className="bg-white p-6 rounded-lg shadow-lg flex justify-center items-center">
           <Link
-            to="/projects"
+            to="/project-form"
             className="bg-green-500 text-white w-1/2 text-center py-3 rounded-md hover:bg-green-600 transition"
           >
             Projects
