@@ -78,31 +78,63 @@ const experienceSchema = new mongoose.Schema({
     title: { type: String, required: true, trim: true },
     description: { type: String, trim: true },
     projectUrl: { type: String, trim: true },
+    imageUrl: { type: String, trim: true },
+    githubUrl: { type: String, trim: true },
     technologies: [{ type: String, trim: true }], // List of tech used
   });
+
+  const certificateSchema = new mongoose.Schema(
+    {
+      title: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      issuer: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      issueDate: {
+        type: Date,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: false, // Optional, as not all certifications may have a URL
+        trim: true,
+      },
+      tags: {
+        type: [String], // Array of strings for multiple tags
+        default: [],    // Default to an empty array
+      },
+    },
+  );
   
   const FooterLinksSchema = new mongoose.Schema({
     linkedin: { type: String, trim: true },
     github: { type: String, trim: true },
     twitter: { type: String, trim: true },
-    portfolio: { type: String, trim: true },
+    email: { type: String, trim: true },
   });
   
   const UserSchema = new mongoose.Schema({
-    username: { type: String, required: true, trim: true },
+    name: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true, trim: true },
     password: { type: String, required: true }, // Should be hashed
-    profilePicture: { type: String, trim: true },
     resume: {
       about: { type: String, trim: true }, // Short bio or description
-      experiences: [ExperienceSchema],
-      projects: [ProjectSchema],
+      experiences: {type:[experienceSchema], default:[]},
+      projects:{type:[ProjectSchema], default:[]} ,
+      certificates :{type:[certificateSchema], default:[]},
       footerLinks: FooterLinksSchema,
+      skills:[{type:String, trim:true}]
     },
   });
 
+const User = mongoose.model('user', UserSchema);
 
 const Project = mongoose.model('project', projectSchema);
 const Experience = mongoose.model('experience', experienceSchema);
 
-module.exports = {Project, Experience};
+module.exports = {User,Project, Experience};

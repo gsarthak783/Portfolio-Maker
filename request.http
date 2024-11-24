@@ -2,3 +2,6 @@ GET http://localhost:4000/experience/get-data
 
 ###
 POST http://localhost:4000/experience/post-data
+
+###
+GET http://localhost:4000/user/get-data

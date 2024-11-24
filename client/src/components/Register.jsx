@@ -1,8 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { createUserWithEmailAndPassword,updateProfile} from 'firebase/auth';
+import { createUserWithEmailAndPassword,updateProfile, signOut} from 'firebase/auth';
 import { auth } from '../firebase/Firebase';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -12,15 +13,18 @@ const Register = () => {
     
     try{
        console.log(data,data.name)
-       console.log(import.meta.env.VITE_API_KEY)
         const user = await createUserWithEmailAndPassword(auth, data.email, data.password)
         console.log(user)
         const update = await updateProfile(auth.currentUser, {
             displayName: data.name
           })
         console.log("Name Added") 
-        navigate('/') 
+       const response = await axios.post('http://localhost:4000/user/post-data',data) 
+       console.log(response.data)
+       await signOut(auth);
+        navigate('/login') 
         
+
     }
     catch(err){
         console.log("Error", err)
