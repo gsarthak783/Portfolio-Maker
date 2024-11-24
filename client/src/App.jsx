@@ -13,6 +13,7 @@ import PrivateRoute from '../src/PrivateRoute/PrivateRoute'
 import Dashboard from './components/Dashboard';
 import ProjectForm from './components/ProjectForm';
 import Project from './components/Projects';
+import FooterLinksForm from './components/FooterLinksForm';
 
 
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
         <Route path='experience-form' element={<PrivateRoute><ExperienceForm/></PrivateRoute>} />
         <Route path='project-form' element={<PrivateRoute><ProjectForm/></PrivateRoute>} />
         <Route path='dashboard' element={<Dashboard/>} />
+        <Route path='footer-form' element={<FooterLinksForm/>} />
 
       </Routes>
 

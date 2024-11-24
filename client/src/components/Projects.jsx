@@ -57,11 +57,12 @@ const Project = () => {
 
   useEffect(()=>{
     let fetchData = async ()=>{
-      let result = await axios.get("http://localhost:4000/project/get-data")
+      let email = localStorage.getItem('email')
+      let result = await axios.get(`http://localhost:4000/project/get-data/${email}`)
       console.log(result.data.payload);
       let fetchedData = result.data.payload;
-      setData(fetchedData.reverse());
-      console.log(data)
+      setData(fetchedData?.reverse());
+      
     }
 
     fetchData();

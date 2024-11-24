@@ -20,6 +20,7 @@ const Dashboard = () => {
   const handleLogout = async () => {
     await signOut(auth);
     localStorage.removeItem('name');
+    localStorage.removeItem('email')
   };
 
   return (

@@ -39,7 +39,8 @@ const ExperienceForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post("http://localhost:4000/experience/post-data", data);
+      let email = localStorage.getItem('email')
+      const response = await axios.post("http://localhost:4000/experience/post-data", {email,data});
       console.log(response.data)
       setFlag(!flag);
       reset();

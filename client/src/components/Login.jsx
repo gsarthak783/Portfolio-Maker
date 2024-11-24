@@ -15,6 +15,7 @@ const Login = () => {
         const user = await signInWithEmailAndPassword(auth, data.email, data.password)
         console.log(user, user.user.displayName)
         localStorage.setItem('name',user.user.displayName)
+        localStorage.setItem('email',user.user.email)
         navigate('/dashboard');
         // console.log(data);
     }

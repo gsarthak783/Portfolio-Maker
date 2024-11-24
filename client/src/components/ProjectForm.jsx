@@ -40,7 +40,8 @@ const ProjectForm = () => {
   const onSubmit = async (data) => {
     try {
         console.log(data);
-      const response = await axios.post("http://localhost:4000/project/post-data", data);
+        let email = localStorage.getItem('email')
+      const response = await axios.post("http://localhost:4000/project/post-data", {email,data});
       console.log(response.data);
       setFlag(!flag);
       reset();

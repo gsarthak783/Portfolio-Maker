@@ -4,7 +4,7 @@ const expressAsyncHandler = require('express-async-handler');
 const { getData, postData, deleteData } = require('../Controller/experienceController');
  
 
-experience.get('/get-data',expressAsyncHandler(getData))
+experience.get('/get-data/:email',expressAsyncHandler(getData))
 
 experience.post('/post-data',expressAsyncHandler(postData))
 
