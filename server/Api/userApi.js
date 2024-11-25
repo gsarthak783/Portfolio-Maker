@@ -4,7 +4,7 @@ const expressAsyncHandler = require('express-async-handler');
 const { getData, postData, deleteData } = require('../Controller/userController');
  
 
-user.get('/get-data',expressAsyncHandler(getData))
+user.get('/get-data/:email',expressAsyncHandler(getData))
 
 user.post('/post-data',expressAsyncHandler(postData))
 

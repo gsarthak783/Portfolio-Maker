@@ -3,27 +3,41 @@ import { useState, useEffect, useRef } from 'react';
 // import { name } from '../constants';
 import { auth } from '../firebase/Firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+
 
 
 const Home = () => {
 
 	const ref = useRef(0);
 	const [text, setText] = useState('');
-	const [user, setUser] = useState(null);
 	let name = localStorage.getItem('name') || 'user';
+	const {email} = useParams();
+	localStorage.setItem('email',email)
 
-	// useEffect(  () => {
-	// 	const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-	// 	  setUser(currentUser);
-	// 	});
-	// 	console.log(user)
-	// 	name = user?.displayname;
-	// 	return () => unsubscribe();
-	//   }, [user]);
+	useEffect( ()=>{
+		const fetch = async ()=>{
+			let response = await axios.get(`http://localhost:4000/user/get-data/${email}`)
+			console.log(response.data)
+			if(response.data.message !== 'No user found'){
+				let nam = response.data.payload?.name;
+				localStorage.setItem('name', nam)
+			}else{
+				localStorage.setItem('name', 'user')
+			}
+			// let nam = response.data.payload?.name || email;
+			console.log((response.data.payload.name))
+			
+			
+		}
+		fetch()
+		
+	},[])
 
 	useEffect(() => {
 
-		
+		console.log(email, "Params");
 		const interval = setInterval(() => {
 			if (ref.current < name?.length) {
 				ref.current++;

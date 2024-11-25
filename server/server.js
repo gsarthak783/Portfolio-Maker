@@ -12,9 +12,11 @@ app.get('/',(req,res)=>{
 const experience = require('./Api/experienceApi')
 const project = require('./Api/projectApi')
 const user = require('./Api/userApi')
+const footer = require('./Api/footerApi')
 app.use('/experience', experience)
 app.use('/project',project)
 app.use('/user',user)
+app.use('/footer',footer)
 
 let port = process.env.PORT;
 app.listen(port,()=>{

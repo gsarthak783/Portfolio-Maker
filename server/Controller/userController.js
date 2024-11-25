@@ -3,9 +3,17 @@ const bcrypt = require('bcryptjs')
 
 const getData = async (req,res) => {
 
-    
-    let data = await User.find();
-    res.send({message:'User data', payload:data});
+    let email = req.params
+
+    let data = await User.findOne(email);
+    if(data){
+        res.send({message:'User data', payload:data});
+    }
+    else{
+        res.send({message:'No user found'});
+
+    }
+   
 }
 
 const postData = async (req,res) => {

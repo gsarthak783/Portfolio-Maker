@@ -53,7 +53,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
-
+  let email = localStorage.getItem('email') || 'user';
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -72,7 +72,7 @@ const Navbar = () => {
     <nav className="bg-slate-700 p-2">
       <div className="container mx-auto flex justify-between items-center">
         {/* Left Section: Home */}
-        <Link to="/" className="text-white font-bold text-lg">
+        <Link to={`/${email}`} className="text-white font-bold text-lg">
           Home
         </Link>
 
