@@ -30,8 +30,8 @@ const App = () => {
         <Route path='register' element={<Register/>} />
         <Route path='experience' element={<Experiences/>} />
         <Route path='project' element={<Project/>} />
-        <Route path='experience-form' element={<PrivateRoute><ExperienceForm/></PrivateRoute>} />
-        <Route path='project-form' element={<PrivateRoute><ProjectForm/></PrivateRoute>} />
+        <Route path='experience-form' element={<ExperienceForm/>} />
+        <Route path='project-form' element={<ProjectForm/>} />
         <Route path='dashboard' element={<Dashboard/>} />
         <Route path='footer-form' element={<FooterLinksForm/>} />
 
