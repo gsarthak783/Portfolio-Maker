@@ -78,7 +78,7 @@ const Dashboard = () => {
         {/* Card 4 */}
         <div className="bg-white p-6 rounded-lg shadow-lg flex justify-center items-center">
           <Link
-            to="/footer-links"
+            to="/footer-form"
             className="bg-purple-500 text-white w-1/2 text-center py-3 rounded-md hover:bg-purple-600 transition"
           >
             Footer Links
