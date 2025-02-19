@@ -22,12 +22,12 @@ const ProjectForm = () => {
 
   const [projects, setProjects] = useState([]);
   const [flag, setFlag] = useState(false);
-
+  const email = localStorage.getItem('email');
   // Fetch projects from the database
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/project/get-data");
+        const response = await axios.get(`http://localhost:4000/project/get-data/${email}`);
         setProjects(response.data.payload);
       } catch (error) {
         console.error("Error fetching projects:", error);

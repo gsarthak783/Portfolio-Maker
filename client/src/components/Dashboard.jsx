@@ -7,6 +7,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 const Dashboard = () => {
 
     const [user, setUser] = useState(null);
+    const email = localStorage.getItem('email');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -27,15 +28,25 @@ const Dashboard = () => {
     <div className="min-h-screen bg-slate-100 p-6 flex flex-col">
       {/* Top Right Username and Logout Button */}
       {user !== null ? (
-         <div className="flex justify-end items-center space-x-4 mb-6">
-         <span className="text-lg font-semibold text-gray-700">{user?.displayName}</span>
-         <button
-           onClick={handleLogout}
-           className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
-         >
-           Logout
-         </button>
-       </div>
+        <div className="flex flex-col items-end space-y-4 mb-6">
+        <div className="flex items-center space-x-4">
+          <span className="text-lg font-semibold text-gray-700">{user?.displayName}</span>
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+          >
+            Logout
+          </button>
+        </div>
+      
+        <div className="text-right">
+          <span className="text-blue-600 hover:underline">
+            <a href={`http://localhost:5173/${email}`} target="_blank" rel="noopener noreferrer">
+              Portfolio URL
+            </a>
+          </span>
+        </div>
+      </div>
       ):(
         <>
 

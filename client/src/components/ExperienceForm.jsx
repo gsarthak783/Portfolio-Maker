@@ -22,12 +22,12 @@ const ExperienceForm = () => {
 
   const [experiences, setExperiences] = useState([]);
   const [flag,setFlag] = useState(false);
-
+  const email = localStorage.getItem('email');
   // Fetch experiences from the database
   useEffect(() => {
     const fetchExperiences = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/experience/get-data");
+        const response = await axios.get(`http://localhost:4000/experience/get-data/${email}`);
         setExperiences(response.data.payload);
       } catch (error) {
         console.error("Error fetching experiences:", error);
