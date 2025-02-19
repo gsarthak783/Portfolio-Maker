@@ -6,14 +6,7 @@ mongoose.connect(url)
 .then(()=> console.log("DB Connect Success"))
 .catch(err => console.log("Error in DB Connect", err))
 
-const projectSchema = new mongoose.Schema({
-  title: { type: String, required: true, trim: true },
-  description: { type: String, trim: true },
-  projectUrl: { type: String, trim: true },
-  imageUrl: { type: String, trim: true },
-  githubUrl: { type: String, trim: true },
-  technologies: [{ type: String, trim: true }], // List of tech used
-})
+
 
 const experienceSchema = new mongoose.Schema({
     companyName: {
@@ -83,6 +76,15 @@ const experienceSchema = new mongoose.Schema({
     technologies: [{ type: String, trim: true }], // List of tech used
   });
 
+  const projectSchema = new mongoose.Schema({
+    title: { type: String, required: true, trim: true },
+    description: { type: String, trim: true },
+    projectUrl: { type: String, trim: true },
+    imageUrl: { type: String, trim: true },
+    githubUrl: { type: String, trim: true },
+    technologies: [{ type: String, trim: true }], // List of tech used
+  })
+
   const certificateSchema = new mongoose.Schema(
     {
       title: {
@@ -125,7 +127,7 @@ const experienceSchema = new mongoose.Schema({
     resume: {
       about: { type: String, trim: true }, // Short bio or description
       experiences: {type:[experienceSchema], default:[]},
-      projects:{type:[ProjectSchema], default:[]} ,
+      projects:{type:[projectSchema], default:[]} ,
       certificates :{type:[certificateSchema], default:[]},
       footerLinks: FooterLinksSchema,
       skills:[{type:String, trim:true}]
