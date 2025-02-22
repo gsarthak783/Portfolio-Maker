@@ -1,8 +1,8 @@
-import {configureStore} from '@reduxjs/toolkit';
-import loginReducer from './slices/userDataSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import userReducer from "./slices/userDataSlice"; // Import the new slice
 
 export const reduxStore = configureStore({
-    reducer:{
-        userData: loginReducer
-    }
+  reducer: {
+    userState: userReducer, // Add the user reducer here
+  },
 });

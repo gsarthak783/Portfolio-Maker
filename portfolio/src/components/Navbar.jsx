@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ThemeController from './ThemeController';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isThemeControllerOpen, setIsThemeControllerOpen] = useState(false);
@@ -24,10 +25,10 @@ const Navbar = () => {
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1 ">
-            <li><a href={`/${email}`} className="">Home</a></li>
-            <li><a href={`/${email}/experiences`} className="">Experience</a></li>
-            <li><a href={`/${email}/projects`} className="">Projects</a></li>
-            <li><a href={`/${email}/certificates`} className="">Certifications</a></li>
+            <li><Link to={`/${email}`} className="">Home</Link></li>
+            <li><Link to={`/${email}/experiences`} className="">Experience</Link></li>
+            <li><Link to={`/${email}/projects`} className="">Projects</Link></li>
+            <li><Link to={`/${email}/certificates`} className="">Certifications</Link></li>
             <li>
               {/* Replaced <summary> with a button to fix refresh issue */}
               <a onClick={toggleThemeController} className="">

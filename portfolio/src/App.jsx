@@ -10,13 +10,24 @@ import Projects from './pages/Projects'
 import Certificates from './pages/Certificates'
 import { Provider } from 'react-redux'
 import { reduxStore } from './store'
+import { useDispatch } from 'react-redux'
+import { fetchUserData } from './slices/userDataSlice'
+import { use, useEffect } from 'react'
 function App() {
- 
+  
+  
+  const dispatch = useDispatch();
+    let email = localStorage.getItem('email');
+  useEffect(() => {
+    
+    dispatch(fetchUserData(email));
+  }
+  , []);
 
   return (
     <>
       <Router>
-      <Provider store={reduxStore}>
+      
         <Navbar />
         <Routes>
           <Route path="/" element={<Homepage />} />
@@ -26,7 +37,7 @@ function App() {
           <Route path="/:email/certificates" element={<Certificates/>} />
         </Routes>
         <Footer />
-        </Provider>
+        
       </Router>
     </>
   )

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Experiences = () => {
   const [data, setData] = useState([]);
-
+  const {userData} = useSelector(state => state.userState);
   useEffect(() => {
+    console.log(userData);
     const fetchData = async () => {
+     
       let email = localStorage.getItem("email");
       let result = await axios.get(
         `http://localhost:4000/experience/get-data/${email}`
