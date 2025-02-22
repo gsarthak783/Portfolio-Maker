@@ -2,21 +2,22 @@
     "version": 2,
     "builds": [
         {
-            "src": "server.js",
+            "src": "*.js",
             "use": "@vercel/node"
         }
     ],
     "routes": [
         {
-            "src": "/api/(.*)",
+            "src": "/(.*)",
             "dest": "/server.js",
-            "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+            "methods": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE",
+                "OPTIONS"
+            ]
         }
-    ],
-    "functions": {
-        "server.js": {
-            "maxDuration": 60, 
-            "memory": 1024
-        }
-    }
+    ]
 }
