@@ -13,14 +13,13 @@ const experience = require('./Api/experienceApi')
 const project = require('./Api/projectApi')
 const user = require('./Api/userApi')
 const footer = require('./Api/footerApi')
-const skill = require('./Api/skillApi')
+// const skill = require('./Api/skillApi')
 const certificate = require('./Api/certificateApi')
-
 app.use('/experience', experience)
 app.use('/project',project)
 app.use('/user',user)
 app.use('/footer',footer)
-app.use('/skill',skill)
+// app.use('/skill',skill)
 app.use('/certificate',certificate)
 
 let port = process.env.PORT;

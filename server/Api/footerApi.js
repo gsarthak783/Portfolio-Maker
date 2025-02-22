@@ -2,13 +2,13 @@ const express = require('express');
 const footer = express.Router();
 
 const expressAsyncHandler = require('express-async-handler');
-const { getData, postData, deleteData } = require('../Controller/footerController');
+const { getData, postData } = require('../Controller/footerController');
  
 
 footer.get('/get-data/:email',expressAsyncHandler(getData))
 
 footer.post('/post-data',expressAsyncHandler(postData))
 
-footer.post('/delete-data',expressAsyncHandler(deleteData))
+// footer.post('/delete-data',expressAsyncHandler(deleteData))
 
 module.exports = footer;

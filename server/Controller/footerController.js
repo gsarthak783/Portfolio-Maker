@@ -48,13 +48,5 @@ const postData = async (req,res) => {
       }
 }
 
-const deleteData = async (req,res) => { 
-    let id = req.body.id
-    console.log(id);
 
-    const deletedProject = await Project.findByIdAndDelete(id);
-
-    res.status(200).send({ message: 'Project deleted successfully', payload: deletedProject });
-
-}
-module.exports = {getData,postData, deleteData}
+module.exports = {getData,postData}

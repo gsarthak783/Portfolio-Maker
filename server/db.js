@@ -138,5 +138,6 @@ const User = mongoose.model('user', UserSchema);
 
 const Project = mongoose.model('project', projectSchema);
 const Experience = mongoose.model('experience', experienceSchema);
+const Certificate = mongoose.model('certificate', certificateSchema);
 
-module.exports = {User,Project, Experience};
+module.exports = {User,Project, Experience, Certificate};
