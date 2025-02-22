@@ -14,6 +14,7 @@ import Dashboard from './components/Dashboard';
 import ProjectForm from './components/ProjectForm';
 import Project from './components/Projects';
 import FooterLinksForm from './components/FooterLinksForm';
+import CertificateForm from './components/CertificateForm';
 
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
         <Route path='project-form' element={<ProjectForm/>} />
         <Route path='dashboard' element={<Dashboard/>} />
         <Route path='footer-form' element={<FooterLinksForm/>} />
+        <Route path='certificate-form' element={<CertificateForm/>} />
 
       </Routes>
 

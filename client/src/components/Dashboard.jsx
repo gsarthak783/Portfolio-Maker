@@ -79,10 +79,10 @@ const Dashboard = () => {
         {/* Card 3 */}
         <div className="bg-white p-6 rounded-lg shadow-lg flex justify-center items-center">
           <Link
-            to="/skills"
+            to="/certificate-form"
             className="bg-yellow-500 text-white w-1/2 text-center py-3 rounded-md hover:bg-yellow-600 transition"
           >
-            Skills
+            Certificates
           </Link>
         </div>
 
