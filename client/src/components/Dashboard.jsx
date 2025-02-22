@@ -41,7 +41,7 @@ const Dashboard = () => {
       
         <div className="text-right">
           <span className="text-blue-600 hover:underline">
-            <a href={`http://localhost:5173/${email}`} target="_blank" rel="noopener noreferrer">
+            <a href={`https://user-portfolio-alpha.vercel.app/${email}`} target="_blank" rel="noopener noreferrer">
               Portfolio URL
             </a>
           </span>
