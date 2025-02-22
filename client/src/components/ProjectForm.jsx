@@ -27,7 +27,7 @@ const ProjectForm = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/project/get-data/${email}`);
+        const response = await axios.get(`https://portfolio-server-two-tawny.vercel.app/project/get-data/${email}`);
         setProjects(response.data.payload);
       } catch (error) {
         console.error("Error fetching projects:", error);
@@ -41,7 +41,7 @@ const ProjectForm = () => {
     try {
         console.log(data);
         let email = localStorage.getItem('email')
-      const response = await axios.post("http://localhost:4000/project/post-data", {email,data});
+      const response = await axios.post("https://portfolio-server-two-tawny.vercel.app/project/post-data", {email,data});
       console.log(response.data);
       setFlag(!flag);
       reset();
@@ -54,7 +54,7 @@ const ProjectForm = () => {
   const handleDelete = async (id) => {
     try {
       console.log(id);
-      const response = await axios.post("http://localhost:4000/project/delete-data", { id });
+      const response = await axios.post("https://portfolio-server-two-tawny.vercel.app/project/delete-data", { id });
       console.log(response.data);
       setFlag(!flag);
     } catch (error) {

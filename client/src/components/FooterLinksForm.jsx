@@ -16,7 +16,7 @@ const FooterLinksForm = () => {
         Object.entries(footerData).filter(([key, value]) => value.trim() !== "")
       );
       console.log(data)
-    let response = await axios.post('http://localhost:4000/footer/post-data',{email,data});
+    let response = await axios.post('https://portfolio-server-two-tawny.vercel.app/footer/post-data',{email,data});
     console.log(response.data);
     // Add backend submission logic here
   };

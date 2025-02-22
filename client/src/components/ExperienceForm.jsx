@@ -27,7 +27,7 @@ const ExperienceForm = () => {
   useEffect(() => {
     const fetchExperiences = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/experience/get-data/${email}`);
+        const response = await axios.get(`https://portfolio-server-two-tawny.vercel.app/experience/get-data/${email}`);
         setExperiences(response.data.payload);
       } catch (error) {
         console.error("Error fetching experiences:", error);
@@ -40,7 +40,7 @@ const ExperienceForm = () => {
   const onSubmit = async (data) => {
     try {
       let email = localStorage.getItem('email')
-      const response = await axios.post("http://localhost:4000/experience/post-data", {email,data});
+      const response = await axios.post("https://portfolio-server-two-tawny.vercel.app/experience/post-data", {email,data});
       console.log(response.data)
       setFlag(!flag);
       reset();
@@ -52,7 +52,7 @@ const ExperienceForm = () => {
   const handleDelete = async (id) => {
     try {
       console.log(id)
-    const response =  await axios.post('http://localhost:4000/experience/delete-data',{id});
+    const response =  await axios.post('https://portfolio-server-two-tawny.vercel.app/experience/delete-data',{id});
     console.log(response.data)
       setFlag(!flag);
     } catch (error) {

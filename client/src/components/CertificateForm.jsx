@@ -27,7 +27,7 @@ const CertificateForm = () => {
   useEffect(() => {
     const fetchCertificates = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/certificate/get-data/${email}`);
+        const response = await axios.get(`https://portfolio-server-two-tawny.vercel.app/certificate/get-data/${email}`);
         setCertificates(response.data.payload);
       } catch (error) {
         console.error("Error fetching certificates:", error);
@@ -38,7 +38,7 @@ const CertificateForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post("http://localhost:4000/certificate/post-data", { email, data });
+      const response = await axios.post("https://portfolio-server-two-tawny.vercel.app/certificate/post-data", { email, data });
       console.log(response.data);
       setFlag(!flag);
       reset();
@@ -49,7 +49,7 @@ const CertificateForm = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.post("http://localhost:4000/certificate/delete-data", { id });
+      await axios.post("https://portfolio-server-two-tawny.vercel.app/certificate/delete-data", { id });
       setFlag(!flag);
     } catch (error) {
       console.error("Error deleting certificate:", error);
