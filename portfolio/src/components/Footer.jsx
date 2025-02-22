@@ -11,7 +11,7 @@ const Footer = () => {
 
    useEffect(() => {
         if (!isLoading) {
-          setFooter(userData.resume?.footerLinks || []);
+          setFooter(userData?.resume?.footerLinks || []);
         }
       }, [isLoading, userData]);
   
