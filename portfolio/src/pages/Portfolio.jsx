@@ -1,9 +1,17 @@
-import React from 'react';
+import React , {use, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { userLoginPromiseStatus } from '../slices/userDataSlice';
 const Portfolio = () => {
     const { email } = useParams();
     console.log(email);
     localStorage.setItem('email', email);
+
+    const dispatch = useDispatch();
+    const {currentUser,loginStatus,isPending, errorMessage } = useSelector((state) => state.userData);
+    useEffect(() => {
+        dispatch(userLoginPromiseStatus(email))
+    }, []);
   return (
     <div className="min-h-screen bg-base-100 text-base-content">
      

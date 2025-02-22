@@ -8,13 +8,15 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Projects from './pages/Projects'
 import Certificates from './pages/Certificates'
-
+import { Provider } from 'react-redux'
+import { reduxStore } from './store'
 function App() {
  
 
   return (
     <>
       <Router>
+      <Provider store={reduxStore}>
         <Navbar />
         <Routes>
           <Route path="/" element={<Homepage />} />
@@ -24,6 +26,7 @@ function App() {
           <Route path="/:email/certificates" element={<Certificates/>} />
         </Routes>
         <Footer />
+        </Provider>
       </Router>
     </>
   )
