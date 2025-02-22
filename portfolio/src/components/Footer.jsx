@@ -1,61 +1,31 @@
 import React, { useEffect, useState } from "react";
-
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Footer = () => {
   const year = new Date().getFullYear();
   const [footer, setFooter] = useState({});
+  const {userData, isLoading} = useSelector((state) => state.userState);
+  
 
-  useEffect(() => {
-    const fetchData = async () => {
-      let email = localStorage.getItem("email");
-      let response = await axios.get(
-        `http://localhost:4000/footer/get-data/${email}`
-      );
-      setFooter(response.data.payload);
-    };
-
-    setTimeout(() => {
-      fetchData();
-    }, 500);
-  }, []);
-
+   useEffect(() => {
+        if (!isLoading) {
+          setFooter(userData.resume?.footerLinks || []);
+        }
+      }, [isLoading, userData]);
+  
   return (
-    <footer className="footer p-10 bg-base-200 text-base-content flex flex-wrap justify-between items-center">
+    <footer className="footer p-6 bg-base-200 text-base-content flex flex-wrap justify-between items-center">
       <div>
         <p className="text-center sm:text-left">
           © {year}{" "}
-          <a
-            href="https://www.github.com/gsarthak783"
-            className="link link-hover"
-            target="_blank"
-          >
-            {name}
-          </a>
+         
           . All rights reserved.
         </p>
       </div>
       <div className="flex gap-4">
-        <Link
-          to="/dashboard"
-          className="btn btn-ghost btn-circle transition hover:scale-110"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3 12h18M3 6h18M3 18h18"
-            />
-          </svg>
-        </Link>
+        
 
         <a
           href={`mailto:${footer?.email}`}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const ProjectCard = ({ title, description, imageUrl, projectUrl, githubUrl, technologies }) => {
   return (
@@ -47,22 +48,20 @@ const ProjectCard = ({ title, description, imageUrl, projectUrl, githubUrl, tech
 const Projects = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const {userData, isLoading} = useSelector(state => state.userState);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const email = localStorage.getItem("email");
-        const result = await axios.get(`http://localhost:4000/project/get-data/${email}`);
-        setData(result.data.payload.reverse());
-      } catch (error) {
-        console.error("Error fetching projects", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+ useEffect(() => {
+       if (!isLoading) {
+         setData(userData.resume?.projects || []);
+         setLoading(false);
+       }
+     }, [isLoading, userData]);
 
-    fetchData();
-  }, []);
+     if (isLoading) {
+      return <div className="flex justify-center items-center min-h-screen">
+      <span className="loading loading-spinner loading-lg text-primary"></span>
+    </div>;
+    }
 
   return (
     <div className="min-h-screen bg-base-100 px-6 py-12">

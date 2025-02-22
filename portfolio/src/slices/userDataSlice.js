@@ -4,7 +4,7 @@ import axios from "axios";
 // Async thunk to fetch user data
 export const fetchUserData = createAsyncThunk("user/fetchUserData", async (email, thunkApi) => {
   try {
-    const response = await axios.get(`http://localhost:4000/user/get-data/${email}`);
+    const response = await axios.get(`https://portfolio-server-two-tawny.vercel.app/user/get-data/${email}`);
     return response.data; // Assuming response contains user data
   } catch (error) {
     return thunkApi.rejectWithValue(error.response?.data || "Failed to fetch user data");

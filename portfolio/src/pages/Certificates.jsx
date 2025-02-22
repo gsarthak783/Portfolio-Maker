@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Certificates = () => {
   const [certificates, setCertificates] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      let email = localStorage.getItem("email");
-      let result = await axios.get(
-        `http://localhost:4000/certificate/get-data/${email}`
-      );
-      let fetchedData = result.data.payload;
-      setCertificates(fetchedData?.reverse());
-    };
-
-    fetchData();
-  }, []);
+  const { userData, isLoading } = useSelector((state) => state.userState);
+   useEffect(() => {
+        if (!isLoading) {
+          setCertificates(userData.resume?.certificates || []);
+        }
+      }, [isLoading, userData]);
+  
+    if (isLoading) {
+      return <div className="flex justify-center items-center min-h-screen">
+      <span className="loading loading-spinner loading-lg text-primary"></span>
+    </div>;
+    }
 
   return (
     <div className="min-h-screen bg-base-100 px-6 py-12">

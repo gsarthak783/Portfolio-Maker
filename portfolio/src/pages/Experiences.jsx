@@ -4,21 +4,23 @@ import { useSelector } from "react-redux";
 
 const Experiences = () => {
   const [data, setData] = useState([]);
-  const {userData} = useSelector(state => state.userState);
-  useEffect(() => {
-    console.log(userData);
-    const fetchData = async () => {
-     
-      let email = localStorage.getItem("email");
-      let result = await axios.get(
-        `http://localhost:4000/experience/get-data/${email}`
-      );
-      let fetchedData = result.data.payload;
-      setData(fetchedData?.reverse());
-    };
+  const {userData, isLoading} = useSelector(state => state.userState);
+  
+    // const experiences = userData.resume?.experiences;
+    
+ 
+    useEffect(() => {
+      if (!isLoading) {
+        setData(userData.resume?.experiences || []);
+      }
+    }, [isLoading, userData]);
 
-    fetchData();
-  }, []);
+  if (isLoading) {
+    return <div className="flex justify-center items-center min-h-screen">
+    <span className="loading loading-spinner loading-lg text-primary"></span>
+  </div>;
+  }
+  
 
   return (
     <div className="min-h-screen bg-base-100  px-6 py-12">
