@@ -3,12 +3,12 @@ import axios from "axios";
 
 const ProjectCard = ({ title, description, imageUrl, projectUrl, githubUrl, technologies }) => {
   return (
-    <div className="card bg-base-100 shadow-md hover:shadow-lg transition duration-300 p-6 border border-base-300">
+    <div className="card bg-neutral shadow-md hover:shadow-lg transition duration-300 p-6 border border-base-300">
       <figure>
         <a href={projectUrl} target="_blank" rel="noopener noreferrer">
                     <iframe 
             src={projectUrl} 
-            className="w-full h-48 border border-gray-300 rounded-md" 
+            className="w-full h-48 bg-white border border-gray-300 rounded-md" 
             loading="lazy" 
             sandbox="allow-scripts allow-same-origin" 
             style={{
@@ -23,9 +23,9 @@ const ProjectCard = ({ title, description, imageUrl, projectUrl, githubUrl, tech
       </figure>
       <div className="card-body">
         <h2 className="card-title text-2xl font-bold">
-          <a href={projectUrl} className="hover:text-primary transition">{title}</a>
+          <a href={projectUrl} className="text-primary transition">{title}</a>
         </h2>
-        <p className="text-gray-600">{description}</p>
+        <p className="text-accent">{description}</p>
         <div className="flex flex-wrap gap-2 mt-3">
           {technologies.map((tag, index) => (
             <span key={index} className="badge badge-outline badge-primary">#{tag}</span>

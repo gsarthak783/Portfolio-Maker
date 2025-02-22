@@ -35,7 +35,7 @@ const Experiences = () => {
         {data?.map((experience, index) => (
           <div
             key={index}
-            className="card bg-base-200 shadow-md hover:shadow-lg transition duration-300 p-6 border border-base-300"
+            className="card bg-neutral shadow-md hover:shadow-lg transition duration-300 p-6 border border-base-300"
           >
             {/* Header Section */}
             <div className="flex justify-between items-center">
@@ -53,10 +53,10 @@ const Experiences = () => {
                   />
                 </a>
                 <div>
-                  <h3 className="text-2xl font-bold ">
+                  <h3 className="text-2xl text-primary font-bold ">
                     {experience.role}
                   </h3>
-                  <p className="text-lg text-secondary font-semibold">
+                  <p className="text-lg text-accent font-semibold">
                     {experience.companyName}
                   </p>
                 </div>
@@ -67,7 +67,7 @@ const Experiences = () => {
             </div>
 
             {/* Experience Details */}
-            <ul className="mt-5 list-disc ml-5 space-y-2 ">
+            <ul className="mt-5 list-disc ml-5 space-y-2 text-accent">
               {experience.summaryPoints.map((point, idx) => (
                 <li key={idx}>{point}</li>
               ))}

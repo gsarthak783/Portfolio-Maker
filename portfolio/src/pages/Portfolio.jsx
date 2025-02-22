@@ -9,7 +9,7 @@ const Portfolio = () => {
      
       
       {/* Welcome Message Section */}
-      <section className="hero min-h-screen bg-primary text-white">
+      <section className="hero min-h-screen bg-base-100 text-base-content">
         <div className="hero-content text-center">
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">Hi, welcome to my Portfolio!</h1>
