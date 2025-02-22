@@ -9,6 +9,15 @@ const Dashboard = () => {
     const [user, setUser] = useState(null);
     const email = localStorage.getItem('email');
 
+    const portfolioUrl = `https://user-portfolio-alpha.vercel.app/${email}`;
+    const [copied, setCopied] = useState(false);
+  
+    const copyToClipboard = () => {
+      navigator.clipboard.writeText(portfolioUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1000); // Reset copied state after 2 seconds
+    };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -40,11 +49,16 @@ const Dashboard = () => {
         </div>
       
         <div className="text-right">
-          <span className="text-blue-600 hover:underline">
+          <span className="text-blue-600 hover:underline mx-2">
             <a href={`https://user-portfolio-alpha.vercel.app/${email}`} target="_blank" rel="noopener noreferrer">
               Portfolio URL
             </a>
           </span>
+
+          {/* Copy Button */}
+      <button onClick={copyToClipboard} className="btn btn-sm btn-outline btn-primary">
+        {copied ? "Copied!" : "📋 Copy"}
+      </button>
         </div>
       </div>
       ):(
