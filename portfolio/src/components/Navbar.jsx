@@ -29,13 +29,13 @@ const Navbar = () => {
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
             </svg>
           </label>
-          <a href="/" className="btn btn-ghost text-xl">Portfolio</a>
+          <Link to={`/${email}`} className="btn btn-ghost text-xl">Portfolio</Link>
         </div>
 
         {/* Desktop Navigation Menu */}
         <div className="hidden lg:flex">
           <ul className="menu menu-horizontal px-1 space-x-4">
-            <li><Link to={`/${email}`}>Home</Link></li>
+            {/* <li><Link to={`/${email}`}>Home</Link></li> */}
             <li><Link to={`/${email}/experiences`}>Experience</Link></li>
             <li><Link to={`/${email}/projects`}>Projects</Link></li>
             <li><Link to={`/${email}/certificates`}>Certifications</Link></li>
@@ -77,7 +77,7 @@ const Navbar = () => {
               </label>
             </li>
 
-            <li><Link to={`/${email}`}>Home</Link></li>
+            {/* <li><Link to={`/${email}`}>Home</Link></li> */}
             <li><Link to={`/${email}/experiences`}>Experience</Link></li>
             <li><Link to={`/${email}/projects`}>Projects</Link></li>
             <li><Link to={`/${email}/certificates`}>Certifications</Link></li>
