@@ -27,6 +27,7 @@ const Navbar = () => {
             <li><a href={`/${email}`} className="">Home</a></li>
             <li><a href={`/${email}/experiences`} className="">Experience</a></li>
             <li><a href={`/${email}/projects`} className="">Projects</a></li>
+            <li><a href={`/${email}/certificates`} className="">Certifications</a></li>
             <li>
               {/* Replaced <summary> with a button to fix refresh issue */}
               <a onClick={toggleThemeController} className="">

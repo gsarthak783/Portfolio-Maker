@@ -7,6 +7,7 @@ import Experiences from './pages/Experiences'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Projects from './pages/Projects'
+import Certificates from './pages/Certificates'
 
 function App() {
  
@@ -20,6 +21,7 @@ function App() {
           <Route path="/:email" element={<Portfolio/>} />
           <Route path="/:email/experiences" element={<Experiences/>} />
           <Route path="/:email/projects" element={<Projects/>} />
+          <Route path="/:email/certificates" element={<Certificates/>} />
         </Routes>
         <Footer />
       </Router>
