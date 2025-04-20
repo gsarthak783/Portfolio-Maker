@@ -19,7 +19,7 @@ const Register = () => {
             displayName: data.name
           })
         console.log("Name Added") 
-       const response = await axios.post('http://localhost:4000/user/post-data',data) 
+       const response = await axios.post('https://portfolio-server-two-tawny.vercel.app/user/post-data',data) 
        console.log(response.data)
        await signOut(auth);
         navigate('/login') 
