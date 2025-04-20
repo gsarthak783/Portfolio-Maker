@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux'
 import { fetchUserData } from './slices/userDataSlice'
 import { useEffect } from 'react'
 import ResumePage from './pages/ResumePage'
+import ContactPage from './pages/ContactPage'
 function App() {
   
   
@@ -35,6 +36,7 @@ function App() {
           <Route path="/:email/projects" element={<Projects/>} />
           <Route path="/:email/certificates" element={<Certificates/>} />
           <Route path="/:email/resume" element={<ResumePage/>} />
+          <Route path="/:email/contact" element={<ContactPage/>} />
         </Routes>
         <Footer />
         

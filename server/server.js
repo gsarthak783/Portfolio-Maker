@@ -15,12 +15,15 @@ const user = require('./Api/userApi')
 const footer = require('./Api/footerApi')
 // const skill = require('./Api/skillApi')
 const certificate = require('./Api/certificateApi')
+const email = require('./Api/emailAPi')
+
 app.use('/experience', experience)
 app.use('/project',project)
 app.use('/user',user)
 app.use('/footer',footer)
 // app.use('/skill',skill)
 app.use('/certificate',certificate)
+app.use('/email',email)
 
 let port = process.env.PORT;
 app.listen(port,()=>{
