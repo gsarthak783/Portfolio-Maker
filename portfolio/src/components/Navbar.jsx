@@ -82,6 +82,7 @@ const Navbar = () => {
             <li><Link to={`/${email}/experiences`}>Experience</Link></li>
             <li><Link to={`/${email}/projects`}>Projects</Link></li>
             <li><Link to={`/${email}/certificates`}>Certifications</Link></li>
+            <li><Link to={`/${email}/resume`}>Resume</Link></li>
             <li><a onClick={toggleThemeController}>Theme</a></li>
           </ul>
         </div>
