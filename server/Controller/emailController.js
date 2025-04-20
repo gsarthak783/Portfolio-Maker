@@ -43,9 +43,9 @@ import nodemailer from "nodemailer";
 
     await transporter.sendMail(mailOptions);
 
-    res.status(200).json({ message: "success", payload:req.body });
+    res.status(200).send({ message: "success", payload:req.body });
   } catch (error) {
     console.error("Mail sending error:", error);
-    res.status(500).json({ success: false, message: "Failed to send message." });
+    res.status(500).send({ success: false, message: "Failed to send message." });
   }
  }
