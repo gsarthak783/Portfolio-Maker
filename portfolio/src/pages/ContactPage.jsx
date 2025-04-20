@@ -26,7 +26,7 @@ const ContactPage = () => {
   const submitHandler = async (data) => {
     console.log("Form Submitted:", data);
     const emailData = {...data, receiverEmail}
-    const response = await axios.post("http://localhost:4000/email/send-email", emailData);
+    const response = await axios.post("https://portfolio-server-two-tawny.vercel.app/email/send-email", emailData);
     console.log(response.data);
     if (response?.data.message === "success") {
         showToast("Email sent successfully!", "success");
