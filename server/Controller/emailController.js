@@ -31,7 +31,7 @@ import nodemailer from "nodemailer";
     <hr style="margin: 20px 0;" />
     
     <p><strong>Message:</strong></p>
-    <p style="margin-left: 10px; padding-left: 10px; border-left: 3px solid #4A90E2;">
+    <p style="margin-left: 10px; padding-left: 10px; border-left: 5px solid #4A90E2;">
       ${message.replace(/\n/g, '<br/>')}
     </p>
     
