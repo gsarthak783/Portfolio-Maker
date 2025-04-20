@@ -66,9 +66,12 @@ const Experiences = () => {
                   </p>
                 </div>
               </div>
-              <span className="badge badge-outline badge-primary text-sm px-3 py-1">
-                {experience.duration}
-              </span>
+              <span
+              className="badge badge-outline badge-primary text-sm px-3 py-1 whitespace-nowrap max-w-[120px] truncate"
+              title={experience.duration}
+            >
+              {experience.duration}
+            </span>
             </div>
 
             {/* Experience Details */}
