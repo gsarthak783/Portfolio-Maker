@@ -118,6 +118,7 @@ const experienceSchema = new mongoose.Schema({
     github: { type: String, trim: true },
     twitter: { type: String, trim: true },
     email: { type: String, trim: true },
+    resume: { type: String, trim: true },
   });
   
   const UserSchema = new mongoose.Schema({
