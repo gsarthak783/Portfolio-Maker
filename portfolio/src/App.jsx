@@ -8,11 +8,10 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Projects from './pages/Projects'
 import Certificates from './pages/Certificates'
-import { Provider } from 'react-redux'
-import { reduxStore } from './store'
 import { useDispatch } from 'react-redux'
 import { fetchUserData } from './slices/userDataSlice'
-import { use, useEffect } from 'react'
+import { useEffect } from 'react'
+import ResumePage from './pages/ResumePage'
 function App() {
   
   
@@ -35,6 +34,7 @@ function App() {
           <Route path="/:email/experiences" element={<Experiences/>} />
           <Route path="/:email/projects" element={<Projects/>} />
           <Route path="/:email/certificates" element={<Certificates/>} />
+          <Route path="/:email/resume" element={<ResumePage/>} />
         </Routes>
         <Footer />
         

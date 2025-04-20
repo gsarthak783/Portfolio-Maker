@@ -16,7 +16,7 @@ const Footer = () => {
       }, [isLoading, userData]);
   
   return (
-    <footer className="footer p-6 bg-base-200 text-base-content flex flex-wrap justify-between items-center">
+    <footer className="footer p-4 bg-base-200 text-base-content flex flex-wrap justify-between items-center">
       <div>
         <p className="text-center sm:text-left">
           © {year}{" "}
