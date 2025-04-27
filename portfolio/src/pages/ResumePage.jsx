@@ -19,8 +19,37 @@ const ResumePage = () => {
       }
   
   const getEmbedUrl = (url) => {
-    const match = url.match(/\/d\/(.+?)\//);
-    return match ? `https://drive.google.com/file/d/${match[1]}/preview` : null;
+    if (!url) return null;
+
+    // Google Drive
+    const gDriveMatch = url.match(/\/d\/(.+?)\//);
+    if (gDriveMatch) {
+      return `https://drive.google.com/file/d/${gDriveMatch[1]}/preview`;
+    }
+
+    // Dropbox
+    if (url.includes("dropbox.com")) {
+      return url
+        .replace("www.dropbox.com", "dl.dropboxusercontent.com")
+        .replace("?dl=0", "");
+    }
+
+    // OneDrive
+    if (url.includes("onedrive.live.com")) {
+      // If it's a view link, convert it to an embed link
+      const match = url.match(/resid=([^&]*)&authkey=([^&]*)/);
+      if (match) {
+        const [_, resid, authkey] = match;
+        return `https://onedrive.live.com/embed?resid=${resid}&authkey=${authkey}`;
+      }
+    }
+
+    // Direct PDF
+    if (url.endsWith(".pdf")) {
+      return url;
+    }
+
+    return null;
   };
 
   const embedUrl = getEmbedUrl(resume);
