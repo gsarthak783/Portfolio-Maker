@@ -12,7 +12,7 @@ const Home = () => {
             <p className="mb-6 text-lg text-gray-600">
               Create a professional and beautiful portfolio in minutes. Showcase your skills, projects, and achievements — without writing a single line of code!
             </p>
-            <Link to="/signup" className="btn btn-primary btn-lg text-white">Get Started</Link>
+            <Link to="/register" className="btn btn-primary btn-lg text-white">Get Started</Link>
           </div>
         </div>
       </section>
@@ -119,7 +119,7 @@ const Home = () => {
       <section className="py-20 bg-gray-50  text-center">
         <h2 className="text-4xl font-bold text-blue-600 mb-6">Start Creating Your Portfolio Today</h2>
         <p className="mb-6 text-lg">Join hundreds of developers showcasing their talent beautifully.</p>
-        <Link to="/signup" className="btn btn-primary btn-lg text-white">Create My Portfolio</Link>
+        <Link to="/register" className="btn btn-primary btn-lg text-white">Create My Portfolio</Link>
       </section>
     </div>
   );
