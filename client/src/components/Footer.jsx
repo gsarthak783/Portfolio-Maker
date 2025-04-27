@@ -1,67 +1,56 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { name } from '../constants';
-import { Link } from 'react-router-dom';
-import { FaGithub, FaTwitter } from 'react-icons/fa';
-import {  AiFillLinkedin } from 'react-icons/ai';
-import { BiSolidDashboard } from "react-icons/bi";
-import { FiMail } from 'react-icons/fi';
-import axios from 'axios';
-import {auth} from '../firebase/Firebase';
-import { onAuthStateChanged } from 'firebase/auth';
-
 
 const Footer = () => {
-	const year = new Date().getFullYear();
-	const [footer,setFooter] = useState({})
-	useEffect(()=>{
+  const year = new Date().getFullYear();
 
+  return (
+    <footer className="bg-white text-base-content pt-12 pb-6 px-6 shadow-md">
+      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        {/* Core Features */}
+        <div className="space-y-4">
+          <p className="font-semibold text-blue-600">Core Features</p>
+          <ul className="space-y-2 text-sm text-gray-600">
+            <li>Easy Customization</li>
+            <li>Responsive Designs</li>
+            <li>Real-Time Updates</li>
+            <li>Secure Hosting</li>
+          </ul>
+        </div>
 
-		
-				const fetchData = async ()=>{
-					let email = localStorage.getItem('email');
-					let response = await axios.get(`http://localhost:4000/footer/get-data/${email}`)
-					console.log(response.data);
-					setFooter(response.data.payload)
-					
-				};
-				setTimeout(()=>{
-					fetchData();
-				},500)
-				
-		
-	},[])
+        {/* Contact */}
+        <div className="space-y-4">
+          <p className="font-semibold text-blue-600">Contact Us</p>
+          <p className="text-sm text-gray-600">
+            Have questions? Reach out to our support team at:
+          </p>
+          <p className="text-sm text-blue-500">
+            <a href="mailto:support@portfolio.com" className="hover:underline">
+              gsarthak783@gmail.com
+            </a>
+          </p>
+        </div>
 
-	return (
-		<div className='bg-slate-800 p-4' style={{ cursor: 'default' }}>
-			<div className='flex justify-between flex-wrap gap-4'>
-				<p className='text-white text-center w-full sm:w-auto font-light'>© {year} <a href='https://www.github.com/gsarthak783' className='hover:underline' target='_blank'>{name}</a>    . All rights reserved.</p>
-				<div className='text-white flex justify-around sm:w-[250px] w-full'>
-					
+        {/* Legal Information */}
+        <div className="space-y-4">
+          <p className="font-semibold text-blue-600">Legal</p>
+          <ul className="space-y-2 text-sm text-gray-600">
+            <li><a href="#terms" className="hover:text-blue-500">Terms of Service</a></li>
+            <li><a href="#privacy" className="hover:text-blue-500">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
 
-					<Link to='/dashboard' className='transition ease-in-out duration-300 rounded-md hover:scale-110 cursor-pointer hover:-translate-y-1' style={{ cursor: 'pointer' }}>
-					<BiSolidDashboard  className='text-xl'/>
-					</Link>
-
-					<a href={`mailto:${footer?.email}`} className='transition ease-in-out duration-300 rounded-md hover:scale-110 cursor-pointer hover:-translate-y-1' style={{ cursor: 'pointer' }}>
-						<FiMail className='text-xl' />
-					</a>
-					<a  href={footer?.twitter} target='_blank' className='transition ease-in-out duration-300 rounded-md hover:scale-110 cursor-pointer hover:-translate-y-1' style={{ cursor: 'pointer' }}>
-						<FaTwitter className='text-xl' />
-					</a>
-					<a href={footer?.linkedin} target='_blank' className='transition ease-in-out duration-300 rounded-md hover:scale-110 cursor-pointer hover:-translate-y-1' style={{ cursor: 'pointer' }}>
-						<AiFillLinkedin className='text-xl' />
-					</a>
-					<a href={footer?.github} target='_blank' className='transition ease-in-out duration-300 rounded-md hover:scale-110 cursor-pointer hover:-translate-y-1' style={{ cursor: 'pointer' }} >
-						<FaGithub className='text-xl' />
-					</a>
-					{/* <a href="#" target='_blank' className='transition ease-in-out duration-300 rounded-md hover:scale-110 cursor-pointer hover:-translate-y-1' style={{ cursor: 'pointer' }}>
-						<AiFillMediumCircle className='text-xl' />
-					</a> */}
-					
-				</div>
-			</div>
-		</div>
-	);
-}
+      {/* Bottom Copyright */}
+      <div className="text-center pt-4 text-sm text-gray-600 mt-4">
+        <p>
+          Designed & Developed by <span className="font-semibold">{name}</span>
+        </p>
+        <p>© {year} All rights reserved.</p>
+      </div>
+    </footer>
+  );
+};
 
 export default Footer;

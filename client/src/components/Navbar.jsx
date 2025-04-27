@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase/Firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
-  let email = localStorage.getItem('email') || 'user';
+  const navigate = useNavigate();
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -18,55 +18,52 @@ const Navbar = () => {
     await signOut(auth);
     localStorage.removeItem('name');
     localStorage.removeItem('email');
+    navigate('/');
+
   };
 
   return (
-    <nav className="bg-slate-700 p-2">
-      <div className="container mx-auto flex justify-between items-center">
+    <nav className="bg-white shadow-md">
+      <div className="container mx-auto flex justify-between items-center p-4">
         {/* Left Section: Home */}
-        <Link to={`/${email}`} className="text-white font-bold text-lg">
-          Home
+        {!user ? (
+          <Link to='/' className="text-2xl font-semibold text-blue-600 hover:text-blue-800 transition duration-300">
+          Portfolio
         </Link>
+        ) : (
+          <Link to='dashboard' className="text-2xl font-semibold text-blue-600 hover:text-blue-800 transition duration-300">
+            Portfolio
+          </Link>
+        )}
 
-        {/* Right Section: Other Links */}
-        <div className="flex items-center space-x-4">
+        {/* Right Section: Authentication Links */}
+        <div className="flex items-center space-x-6">
           {!user ? (
             <>
               <Link
                 to="/register"
-                className="bg-blue-500 text-white font-bold px-4 py-2 rounded-lg transition duration-200 hover:bg-blue-600"
+                className="btn btn-outline btn-primary text-blue-600 font-semibold hover:bg-blue-600 hover:text-white transition duration-200"
               >
                 Register
               </Link>
               <Link
                 to="/login"
-                className="bg-blue-500 text-white font-bold px-4 py-2 rounded-lg transition duration-200 hover:bg-blue-600"
+                className="btn btn-outline btn-primary text-blue-600 font-semibold hover:bg-blue-600 hover:text-white transition duration-200"
               >
                 Login
               </Link>
             </>
           ) : (
             <>
-              {/* <button
+              <span className="text-lg font-semibold text-blue-600">{user?.displayName}</span>
+              <button
                 onClick={logout}
-                className="bg-red-500 text-white font-bold px-4 py-2 rounded-lg transition duration-200 hover:bg-red-600"
+                className="btn btn-outline btn-error text-red-600 font-semibold hover:bg-red-600 hover:text-white transition duration-200"
               >
                 Logout
-              </button> */}
+              </button>
             </>
           )}
-          {/* <Link
-            to="/experience"
-            className="text-white font-bold text-lg px-4 py-2 transition duration-200 hover:text-slate-200"
-          >
-            Experience
-          </Link>
-          <Link
-            to="/project"
-            className="text-white font-bold text-lg px-4 py-2 transition duration-200 hover:text-slate-200"
-          >
-            Projects
-          </Link> */}
         </div>
       </div>
     </nav>
@@ -74,4 +71,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

@@ -38,15 +38,6 @@ const Dashboard = () => {
       {/* Top Right Username and Logout Button */}
       {user !== null ? (
         <div className="flex flex-col items-end space-y-4 mb-6">
-        <div className="flex items-center space-x-4">
-          <span className="text-lg font-semibold text-gray-700">{user?.displayName}</span>
-          <button
-            onClick={handleLogout}
-            className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
-          >
-            Logout
-          </button>
-        </div>
       
         <div className="text-right">
           <span className="text-blue-600 hover:underline mx-2">
