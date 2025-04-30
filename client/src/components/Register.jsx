@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { createUserWithEmailAndPassword,updateProfile, signOut} from 'firebase/auth';
 import { auth } from '../firebase/Firebase';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Register = () => {
@@ -76,6 +76,10 @@ const Register = () => {
             Register
           </button>
         </form>
+
+        <div className='mt-4 font-semibold text-gray-700'>
+          Already an user? <Link to="/login" className="text-blue-500 hover:underline">Login</Link>
+        </div>
       </div>
     </div>
   );

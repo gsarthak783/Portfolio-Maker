@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { auth } from '../firebase/Firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 
 
 const Login = () => {
@@ -58,6 +58,11 @@ const Login = () => {
             Login
           </button>
         </form>
+
+                 <div className='mt-4 font-semibold text-gray-700'>
+                  Not an existing user? <Link to="/register" className="text-blue-500 hover:underline">Register</Link>
+                </div>
+
       </div>
     </div>
   );
