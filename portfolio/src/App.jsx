@@ -18,11 +18,11 @@ function App() {
   
   const dispatch = useDispatch();
     let email = localStorage.getItem('email');
-  useEffect(() => {
+  // useEffect(() => {
     
-    dispatch(fetchUserData(email));
-  }
-  , []);
+  //   dispatch(fetchUserData(email));
+  // }
+  // , []);
 
   return (
     <>
