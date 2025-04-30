@@ -1,15 +1,26 @@
-import React from 'react';
+// components/ProtectedRoute.jsx
+import React, { useEffect, useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
 import { Navigate } from 'react-router-dom';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase/Firebase';
-import Spinner from './Spinner';
+import Spinner from '../components/Spinner';
 
 const ProtectedRoute = ({ children }) => {
-  const [user, loading] = useAuthState(auth);
+  const [authChecked, setAuthChecked] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  if (loading) return <Spinner />;
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsAuthenticated(!!user);
+      setAuthChecked(true);
+    });
 
-  return user ? children : <Navigate to="/login" />;
+    return () => unsubscribe();
+  }, []);
+
+  if (!authChecked) return <Spinner />;
+
+  return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;

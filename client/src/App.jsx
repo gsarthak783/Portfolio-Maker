@@ -15,6 +15,8 @@ import ProjectForm from './components/ProjectForm';
 import Project from './components/Projects';
 import FooterLinksForm from './components/FooterLinksForm';
 import CertificateForm from './components/CertificateForm';
+import PublicRoute from './PrivateRoute/PublicRoute';
+import ProtectedRoute from './PrivateRoute/ProtectedRoute';
 
 
 const App = () => {
@@ -25,17 +27,16 @@ const App = () => {
        <Navbar/>
     
       <Routes>
-      <Route path='/' element={<Home/>} />
-      <Route path='/:email' element={<Home/>} />
-        <Route path='login' element={<Login/>} />
-        <Route path='register' element={<Register/>} />
-        <Route path='experience' element={<Experiences/>} />
-        <Route path='project' element={<Project/>} />
-        <Route path='experience-form' element={<ExperienceForm/>} />
-        <Route path='project-form' element={<ProjectForm/>} />
-        <Route path='dashboard' element={<Dashboard/>} />
-        <Route path='footer-form' element={<FooterLinksForm/>} />
-        <Route path='certificate-form' element={<CertificateForm/>} />
+      <Route path='/' element={<PublicRoute><Home/></PublicRoute>} />
+      {/* <Route path='/:email' element={<Home/>} /> */}
+        <Route path='login' element={<PublicRoute><Login/></PublicRoute>} />
+        <Route path='register' element={<PublicRoute><Register/></PublicRoute>} />
+        
+        <Route path='dashboard' element={<ProtectedRoute><Dashboard/></ProtectedRoute>} />
+        <Route path='experience-form' element={<ProtectedRoute><ExperienceForm/></ProtectedRoute>} />
+        <Route path='project-form' element={<ProtectedRoute><ProjectForm/></ProtectedRoute>} />
+        <Route path='footer-form' element={<ProtectedRoute><FooterLinksForm/></ProtectedRoute>} />
+        <Route path='certificate-form' element={<ProtectedRoute><CertificateForm/></ProtectedRoute>} />
 
       </Routes>
 

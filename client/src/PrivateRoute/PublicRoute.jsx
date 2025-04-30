@@ -1,15 +1,26 @@
-import React from 'react';
+// components/PublicOnlyRoute.jsx
+import React, { useEffect, useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
 import { Navigate } from 'react-router-dom';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase/Firebase';
-import Spinner from './Spinner';
+import Spinner from '../components/Spinner';
 
 const PublicRoute = ({ children }) => {
-  const [user, loading] = useAuthState(auth);
+  const [authChecked, setAuthChecked] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  if (loading) return <Spinner />;
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsAuthenticated(!!user);
+      setAuthChecked(true);
+    });
 
-  return user ? <Navigate to="/dashboard" /> : children;
+    return () => unsubscribe();
+  }, []);
+
+  if (!authChecked) return <Spinner />;
+
+  return isAuthenticated ? <Navigate to="/dashboard" /> : children;
 };
 
 export default PublicRoute;
