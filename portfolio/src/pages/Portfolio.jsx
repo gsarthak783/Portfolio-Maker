@@ -1,6 +1,7 @@
 import React , {use, useEffect} from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserData } from '../slices/userDataSlice';
 
 const Portfolio = () => {
     const { email } = useParams();
@@ -8,6 +9,11 @@ const Portfolio = () => {
     localStorage.setItem('email', email);
 
     const dispatch = useDispatch();
+     useEffect(() => {
+        
+        dispatch(fetchUserData(email));
+      }
+      , [dispatch, email]);
     const {userData} = useSelector((state) => state.userState);
     console.log(userData);
     
