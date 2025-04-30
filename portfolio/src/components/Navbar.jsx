@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import ThemeController from "./ThemeController";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [isThemeControllerOpen, setIsThemeControllerOpen] = useState(false);
-  const email = localStorage.getItem("email");
+  // const email = localStorage.getItem("email");
+
+  const email = useSelector((state) => state.userState.userData?.email);
+  console.log(email, "email2");
 
   const toggleThemeController = (event) => {
     event.preventDefault();
