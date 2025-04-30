@@ -84,7 +84,7 @@ const ResumePage = () => {
         </div>
       ) : (
         <p className="text-center text-red-500 text-lg mt-6">
-          Failed to load resume. Please check the link.
+          Failed to load resume. Please try again later.
         </p>
       )}
     </div>
