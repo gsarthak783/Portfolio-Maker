@@ -12,6 +12,8 @@ const Login = () => {
   const [resetEmail, setResetEmail] = useState('');
   const [resetError, setResetError] = useState('');
   const [resetSuccess, setResetSuccess] = useState('');
+  const [loginError, setLoginError] = useState('');
+
 
   const closeResetDialog = () => {
     setShowResetDialog(false);
@@ -25,9 +27,27 @@ const Login = () => {
       const user = await signInWithEmailAndPassword(auth, data.email, data.password);
       localStorage.setItem('name', user.user.displayName);
       localStorage.setItem('email', user.user.email);
+      setLoginError(''); // clear any previous error
       navigate('/dashboard');
     } catch (err) {
       console.log("Login Error:", err);
+
+      switch (err.code) {
+        case 'auth/user-not-found':
+          setLoginError('No account found with this email.');
+          break;
+        case 'auth/wrong-password':
+          setLoginError('Incorrect password.');
+          break;
+        case 'auth/invalid-email':
+          setLoginError('Invalid email format.');
+          break;
+        case 'auth/invalid-credential':
+          setLoginError('Invalid email or password.');
+          break;
+        default:
+          setLoginError('Login failed. Please try again.');
+      }
     }
   };
 
@@ -74,16 +94,23 @@ const Login = () => {
           </div>
 
           <button
-            type="submit"
+            type="submit" onClick={() => setLoginError('')}
             className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
           >
             Login
           </button>
         </form>
 
+        {loginError && (
+        <div className="mt-4 text-red-500 text-md text-center">
+         {loginError}
+       </div>
+       )}
+
         <div className='mt-4 font-semibold text-gray-700'>
           Forgot Password? <span onClick={() => setShowResetDialog(true)} className="text-blue-500 hover:underline cursor-pointer">Click here</span>
         </div>
+
 
         <div className='mt-2 font-semibold text-gray-700'>
           Not an existing user? <Link to="/register" className="text-blue-500 hover:underline">Register</Link>
