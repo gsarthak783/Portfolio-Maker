@@ -102,7 +102,7 @@ const Login = () => {
         </form>
 
         {loginError && (
-        <div className="mt-4 text-red-500 text-md text-center">
+        <div className="mt-2 text-red-500 text-md text-center">
          {loginError}
        </div>
        )}

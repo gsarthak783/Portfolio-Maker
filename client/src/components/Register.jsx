@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { useForm } from 'react-hook-form';
 import { createUserWithEmailAndPassword,updateProfile, signOut} from 'firebase/auth';
 import { auth } from '../firebase/Firebase';
@@ -8,6 +8,9 @@ import axios from 'axios';
 const Register = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
+
+  const [registerError, setRegisterError] = useState('');
+
 
   const onSubmit = async (data) => {
     
@@ -28,6 +31,20 @@ const Register = () => {
     }
     catch(err){
         console.log("Error", err)
+
+        switch (err.code) {
+          case 'auth/email-already-in-use':
+            setRegisterError('This email is already registered.');
+            break;
+          case 'auth/invalid-email':
+            setRegisterError('Please enter a valid email address.');
+            break;
+          case 'auth/weak-password':
+            setRegisterError('Password should be at least 6 characters.');
+            break;
+          default:
+            setRegisterError('Registration failed. Please try again.');
+        }
     }
   };
 
@@ -70,12 +87,15 @@ const Register = () => {
             {errors.password && <span className="text-red-500 text-sm">Password is required</span>}
           </div>
           <button
-            type="submit"
+            type="submit" onClick={() => setRegisterError('')}
             className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
           >
             Register
           </button>
         </form>
+
+        {registerError && <p className=" mt-2 text-red-500 text-md text-center">{registerError}</p>}
+
 
         <div className='mt-4 font-semibold text-gray-700'>
           Already an user? <Link to="/login" className="text-blue-500 hover:underline">Login</Link>
