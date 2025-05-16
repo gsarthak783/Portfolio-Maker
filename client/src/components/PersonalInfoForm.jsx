@@ -28,6 +28,7 @@ const PersonalInfo = () => {
   }, [refresh]);
 
   const onSubmit = (data) => {
+    try{
     console.log("Personal Info Submitted:", data);
     const response = axios.post(
       "https://portfolio-server-two-tawny.vercel.app/personal/post-data",
@@ -36,6 +37,9 @@ const PersonalInfo = () => {
     console.log("Response:", response.data);
    setRefresh(!refresh); // Trigger refresh to fetch updated data
     setIsEditing(false);
+  } catch (error) {
+    console.error("Error submitting form:", error);
+  }
   };
 
  

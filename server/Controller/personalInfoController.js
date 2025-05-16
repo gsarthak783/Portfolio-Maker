@@ -2,39 +2,55 @@ const { Education, User, PersonalInfo } = require('../db');
 
 // Get Personal Info data by email
 const getData = async (req, res) => {
-    let { email } = req.params;
+    const { email } = req.params;
 
-    const user = await User.findOne({ email }, "resume.personalInfo");
+    try {
+        const user = await User.findOne({ email }, "resume.personalInfo");
 
-    if (!user) {
-        return res.status(404).json({ error: "User not found" });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        return res.status(200).json({
+            message: "Personal Info fetched successfully",
+            payload: user.resume?.personalInfo || {}
+        });
+    } catch (error) {
+        console.error("Error fetching personal info:", error);
+        return res.status(500).json({ error: "Internal server error" });
     }
-
-    res.send({ message: 'Personal Info data', payload: user.resume.personalInfo });
 };
+
 
 // Add/Update Personal Info to the user’s resume
 const postData = async (req, res) => {
-    let { email, data } = req.body;
-    console.log("Received data:", req.body);
+    const { email, data } = req.body;
+
+    if (!email || !data) {
+        return res.status(400).json({ error: "Email and data are required" });
+    }
 
     try {
         const updatedUser = await User.findOneAndUpdate(
             { email },
-            { $push: { "resume.personalInfo": data } },
+            { $set: { "resume.personalInfo": data } },
             { new: true, runValidators: true }
         );
 
-        if (updatedUser) {
-            res.status(201).send({ message: 'Personal Info added successfully', payload: updatedUser });
-        } else {
-            res.status(404).json({ error: "User not found" });
+        if (!updatedUser) {
+            return res.status(404).json({ error: "User not found" });
         }
+
+        return res.status(200).json({
+            message: "Personal Info updated successfully",
+            payload: updatedUser.resume.personalInfo
+        });
     } catch (error) {
-        console.error("Error adding Personal Info:", error);
-        res.status(500).json({ error: "Internal server error" });
+        console.error("Error updating Personal Info:", error);
+        return res.status(500).json({ error: "Internal server error" });
     }
 };
+
 
 // Delete a info by ID
 // const deleteData = async (req, res) => {
