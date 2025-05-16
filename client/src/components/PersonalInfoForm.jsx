@@ -11,7 +11,7 @@ const PersonalInfo = () => {
   } = useForm();
 
   const [personalInfo, setPersonalInfo] = useState(null);
-  const [isEditing, setIsEditing] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const email = localStorage.getItem("email");
 
@@ -27,10 +27,10 @@ const PersonalInfo = () => {
     fetchPersonalInfo();
   }, [refresh]);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     try{
     console.log("Personal Info Submitted:", data);
-    const response = axios.post(
+    const response = await axios.post(
       "https://portfolio-server-two-tawny.vercel.app/personal/post-data",
       { email, data }
     );
