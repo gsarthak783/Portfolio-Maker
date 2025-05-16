@@ -58,24 +58,6 @@ const experienceSchema = new mongoose.Schema({
     },
   });
 
-  const ExperienceSchema = new mongoose.Schema({
-    companyName: { type: String, required: true, trim: true },
-    role: { type: String, required: true, trim: true },
-    duration: { type: String, required: true, trim: true },
-    companyLogo: { type: String, trim: true },
-    companyUrl: { type: String, trim: true },
-    summaryPoints: [{ type: String, trim: true }],
-  });
-  
-  const ProjectSchema = new mongoose.Schema({
-    title: { type: String, required: true, trim: true },
-    description: { type: String, trim: true },
-    projectUrl: { type: String, trim: true },
-    imageUrl: { type: String, trim: true },
-    githubUrl: { type: String, trim: true },
-    technologies: [{ type: String, trim: true }], // List of tech used
-  });
-
   const projectSchema = new mongoose.Schema({
     title: { type: String, required: true, trim: true },
     description: { type: String, trim: true },
@@ -112,6 +94,38 @@ const experienceSchema = new mongoose.Schema({
       },
     },
   );
+
+  const educationSchema = new mongoose.Schema({
+    
+    title: {
+      type: String,
+      required: true,
+    },
+    instituteName: {
+      type: String,
+      required: true,
+    },
+    fromYear: {
+      type: String, 
+      required: true,
+    },
+    toYear: {
+      type: String, 
+      required: true,
+    },
+    grade: {
+      type: String,
+      required: true,
+    },
+    website: {
+      type: String,
+      required: false,
+    },
+    marksheetUrl: {
+      type: String,
+      required: false,
+    },
+  });
   
   const FooterLinksSchema = new mongoose.Schema({
     linkedin: { type: String, trim: true },
@@ -120,16 +134,30 @@ const experienceSchema = new mongoose.Schema({
     email: { type: String, trim: true },
     resume: { type: String, trim: true },
   });
+
+  const personalInfoSchema = new mongoose.Schema({
+    firstName: { type: String, required: true, trim: true },
+    lastName: { type: String, trim: true },
+    contactNumber: { type: String, required: true, trim: true },
+    email: { type: String, required: true, unique: true, trim: true },
+    address: { type: String, trim: true },
+    summary: { type: String, required: true, trim: true },
+  });
   
   const UserSchema = new mongoose.Schema({
     name: { type: String, required: true, trim: true },
+    firstName: { type: String, required: true, trim: true },
+    lastName: { type: String, required: true, trim: true },
+    contactNumber: { type: String, required: true, trim: true },
+    summary: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true, trim: true },
     password: { type: String, required: true }, // Should be hashed
     resume: {
-      about: { type: String, trim: true }, // Short bio or description
+      personalinfo: personalInfoSchema,
       experiences: {type:[experienceSchema], default:[]},
       projects:{type:[projectSchema], default:[]} ,
       certificates :{type:[certificateSchema], default:[]},
+      education: {type:[educationSchema], default:[]},
       footerLinks: FooterLinksSchema,
       skills:[{type:String, trim:true}]
     },
@@ -140,5 +168,7 @@ const User = mongoose.model('user', UserSchema);
 const Project = mongoose.model('project', projectSchema);
 const Experience = mongoose.model('experience', experienceSchema);
 const Certificate = mongoose.model('certificate', certificateSchema);
+const Education = mongoose.model('education', educationSchema);
+const PersonalInfo = mongoose.model('personalInfo', personalInfoSchema);
 
-module.exports = {User,Project, Experience, Certificate};
+module.exports = {User,Project, Experience, Certificate, Education, PersonalInfo};

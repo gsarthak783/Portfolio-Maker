@@ -17,6 +17,8 @@ import FooterLinksForm from './components/FooterLinksForm';
 import CertificateForm from './components/CertificateForm';
 import PublicRoute from './PrivateRoute/PublicRoute';
 import ProtectedRoute from './PrivateRoute/ProtectedRoute';
+import PersonalInfo from './components/PersonalInfoForm';
+import EducationForm from './components/EducationForm';
 
 
 const App = () => {
@@ -37,6 +39,8 @@ const App = () => {
         <Route path='project-form' element={<ProtectedRoute><ProjectForm/></ProtectedRoute>} />
         <Route path='footer-form' element={<ProtectedRoute><FooterLinksForm/></ProtectedRoute>} />
         <Route path='certificate-form' element={<ProtectedRoute><CertificateForm/></ProtectedRoute>} />
+        <Route path ='personal-info' element={<ProtectedRoute><PersonalInfo/></ProtectedRoute>} />
+        <Route path='education-form' element={<ProtectedRoute><EducationForm/></ProtectedRoute>} />
 
       </Routes>
 
