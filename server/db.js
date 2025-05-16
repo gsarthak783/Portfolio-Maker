@@ -149,7 +149,7 @@ const experienceSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true, trim: true },
     password: { type: String, required: true }, // Should be hashed
     resume: {
-      personalinfo: personalInfoSchema,
+      personalInfo: personalInfoSchema,
       experiences: {type:[experienceSchema], default:[]},
       projects:{type:[projectSchema], default:[]} ,
       certificates :{type:[certificateSchema], default:[]},

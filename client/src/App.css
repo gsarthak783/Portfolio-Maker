@@ -1,2 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+input, textarea, select {
+    @apply bg-white;
+  }

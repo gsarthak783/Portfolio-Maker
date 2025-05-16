@@ -1,39 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const PersonalInfo = () => {
   const {
     register,
     handleSubmit,
-    setValue,
-    watch,
+    reset,
     formState: { errors },
   } = useForm();
 
   const [personalInfo, setPersonalInfo] = useState(null);
   const [isEditing, setIsEditing] = useState(true);
+  const [refresh, setRefresh] = useState(false);
+  const email = localStorage.getItem("email");
+
+  useEffect(() => {
+    const fetchPersonalInfo = async () => {
+      const response = await axios.get(
+        `https://portfolio-server-two-tawny.vercel.app/personal/get-data/${email}`
+      );
+      const data = response.data;
+      setPersonalInfo(data.payload);
+      reset(data.payload);
+    };
+    fetchPersonalInfo();
+  }, [refresh]);
 
   const onSubmit = (data) => {
-    setPersonalInfo(data);
+    console.log("Personal Info Submitted:", data);
+    const response = axios.post(
+      "https://portfolio-server-two-tawny.vercel.app/personal/post-data",
+      { email, data }
+    );
+    console.log("Response:", response.data);
+   setRefresh(!refresh); // Trigger refresh to fetch updated data
     setIsEditing(false);
   };
 
-  const handleEdit = () => {
-    setIsEditing(true);
-    if (personalInfo) {
-      Object.entries(personalInfo).forEach(([key, value]) => {
-        setValue(key, value); // update form values
-      });
-    }
-  };
+ 
 
-  // For form value bindings
-  const firstName = watch("firstName");
-  const lastName = watch("lastName");
-  const contactNumber = watch("contactNumber");
-  const email = watch("email");
-  const address = watch("address");
-  const summary = watch("summary");
+ 
 
   console.log("isEditing:", isEditing);
 
@@ -49,7 +56,7 @@ const PersonalInfo = () => {
               type="text"
               disabled={!isEditing}
               {...register("firstName", { required: "Firstname is required" })}
-              value={firstName || ""}
+              
               className={`w-full px-4 py-2 mt-2 border rounded-lg text-black ${!isEditing && "bg-gray-100"}`}
             />
             {errors.firstName && <span className="text-red-500 text-sm">{errors.firstName.message}</span>}
@@ -61,7 +68,7 @@ const PersonalInfo = () => {
               type="text"
               disabled={!isEditing}
               {...register("lastName", { required: "Lastname is required" })}
-              value={lastName || ""}
+             
               className={`w-full px-4 py-2 mt-2 border rounded-lg text-black ${!isEditing && "bg-gray-100"}`}
             />
             {errors.lastName && <span className="text-red-500 text-sm">{errors.lastName.message}</span>}
@@ -73,7 +80,7 @@ const PersonalInfo = () => {
               type="text"
               disabled={!isEditing}
               {...register("contactNumber", { required: "Contact number is required" })}
-              value={contactNumber || ""}
+             
               className={`w-full px-4 py-2 mt-2 border rounded-lg text-black ${!isEditing && "bg-gray-100"}`}
             />
             {errors.contactNumber && <span className="text-red-500 text-sm">{errors.contactNumber.message}</span>}
@@ -85,7 +92,7 @@ const PersonalInfo = () => {
               type="email"
               disabled={!isEditing}
               {...register("email", { required: "Email is required" })}
-              value={email || ""}
+              
               className={`w-full px-4 py-2 mt-2 border rounded-lg text-black ${!isEditing && "bg-gray-100"}`}
             />
             {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
@@ -98,7 +105,7 @@ const PersonalInfo = () => {
               type="text"
               disabled={!isEditing}
               {...register("address")}
-              value={address || ""}
+              
               className={`w-full px-4 py-2 mt-2 border rounded-lg text-black ${!isEditing && "bg-gray-100"}`}
             />
           </div>
@@ -109,7 +116,7 @@ const PersonalInfo = () => {
             <textarea
               disabled={!isEditing}
               {...register("summary", { required: "Summary is required" })}
-              value={summary || ""}
+           
               className={`w-full px-4 py-2 mt-2 border rounded-lg text-black ${!isEditing && "bg-gray-100"}`}
             />
             {errors.summary && <span className="text-red-500 text-sm">{errors.summary.message}</span>}
@@ -120,11 +127,14 @@ const PersonalInfo = () => {
               Save Info
             </button>
           ) : (
-            <button type="button" onClick={handleEdit} className="w-full bg-green-500 text-white py-2 rounded-lg">
+            <p type="button" onClick={()=>{setIsEditing(true)}} className="w-full bg-green-500 text-white py-2 rounded-lg justify-center text-center cursor-pointer">
               Edit Info
-            </button>
+            </p>
           )}
+          
         </form>
+
+        
       </div>
     </div>
   );
