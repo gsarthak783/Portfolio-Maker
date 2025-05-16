@@ -38,10 +38,11 @@ const postData = async (req, res) => {
 
 // Delete a Education by ID
 const deleteData = async (req, res) => {
-    let id = req.body.id;
+    let _id = req.body._id;
+    console.log("Received ID for deletion:", _id, req.body);
 
     try {
-        const deletedEducation = await Education.findByIdAndDelete(id);
+        const deletedEducation = await Education.findByIdAndDelete(_id);
 
         if (!deletedEducation) {
             return res.status(404).json({ error: "Education detail not found" });

@@ -53,11 +53,11 @@ const EducationForm = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (_id) => {
     try {
         const response = await axios.post(
             "https://portfolio-server-two-tawny.vercel.app/education/delete-data",
-            {id}
+            {_id}
         );
         console.log("Education deleted:", response.data);
         setRefresh(!refresh); // Trigger refresh to fetch updated data
