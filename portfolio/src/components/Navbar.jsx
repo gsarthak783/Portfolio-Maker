@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ThemeController from "./ThemeController";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUserData } from "../slices/userDataSlice";
+
 
 const Navbar = () => {
   const [isThemeControllerOpen, setIsThemeControllerOpen] = useState(false);
   // const email = localStorage.getItem("email");
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const email = localStorage.getItem("email");
+    dispatch(fetchUserData(email));
+  }, [dispatch]);
+
 
   const email = useSelector((state) => state.userState.userData?.email);
   console.log(email, "email2");
@@ -41,6 +49,7 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1 space-x-4">
             {/* <li><Link to={`/${email}`}>Home</Link></li> */}
             <li><Link to={`/${email}/experiences`}>Experience</Link></li>
+            <li><Link to={`/${email}/education`}>Education</Link></li>
             <li><Link to={`/${email}/projects`}>Projects</Link></li>
             <li><Link to={`/${email}/certificates`}>Certifications</Link></li>
             <li><Link to={`/${email}/resume`}>Resume</Link></li>
@@ -85,6 +94,7 @@ const Navbar = () => {
 
             {/* <li><Link to={`/${email}`}>Home</Link></li> */}
             <li><Link to={`/${email}/experiences`}>Experience</Link></li>
+            <li><Link to={`/${email}/Education`}>Education</Link></li>
             <li><Link to={`/${email}/projects`}>Projects</Link></li>
             <li><Link to={`/${email}/certificates`}>Certifications</Link></li>
             <li><Link to={`/${email}/resume`}>Resume</Link></li>

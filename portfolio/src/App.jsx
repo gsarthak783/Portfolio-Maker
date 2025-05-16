@@ -13,6 +13,7 @@ import { fetchUserData } from './slices/userDataSlice'
 import { useEffect } from 'react'
 import ResumePage from './pages/ResumePage'
 import ContactPage from './pages/ContactPage'
+import Education from './pages/Education'
 function App() {
   
   
@@ -37,6 +38,8 @@ function App() {
           <Route path="/:email/certificates" element={<Certificates/>} />
           <Route path="/:email/resume" element={<ResumePage/>} />
           <Route path="/:email/contact" element={<ContactPage/>} />
+        <Route path ="/:email/education/" element={<Education/>} />
+
         </Routes>
         <Footer />
         
