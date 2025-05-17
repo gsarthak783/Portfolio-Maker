@@ -18,6 +18,7 @@ const certificate = require('./Api/certificateApi')
 const email = require('./Api/emailAPi')
 const education = require('./Api/educationApi')
 const personal = require('./Api/personalInfoApi')
+const resume = require('./Api/downloadResume')
 
 app.use('/experience', experience)
 app.use('/project',project)
@@ -28,6 +29,8 @@ app.use('/certificate',certificate)
 app.use('/email',email)
 app.use('/education',education)
 app.use('/personal',personal)
+app.use('/resume',resume)
+
 
 let port = process.env.PORT;
 app.listen(port,()=>{
