@@ -75,7 +75,7 @@ const Dashboard = () => {
         <div className="bg-white p-6 rounded-lg shadow-lg flex justify-center items-center">
           <Link
             to="/experience-form"
-            className="bg-blue-500 text-white w-1/2 text-center py-3 rounded-md hover:bg-blue-600 transition"
+            className="bg-pink-500 text-white w-1/2 text-center py-3 rounded-md hover:bg-pink-600 transition"
           >
             Experience
           </Link>
@@ -84,7 +84,7 @@ const Dashboard = () => {
         <div className="bg-white p-6 rounded-lg shadow-lg flex justify-center items-center">
           <Link
             to="/education-form"
-            className="bg-blue-500 text-white w-1/2 text-center py-3 rounded-md hover:bg-blue-600 transition"
+            className="bg-red-500 text-white w-1/2 text-center py-3 rounded-md hover:bg-red-600 transition"
           >
             Education
           </Link>

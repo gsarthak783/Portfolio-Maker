@@ -72,7 +72,7 @@ const ProjectForm = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* Form Fields */}
           <div>
-            <label className="block text-gray-700">Project Title</label>
+            <label className="block text-gray-700">Project Title <span className="text-red-500">*</span></label>
             <input
               type="text"
               {...register("title", { required: "Project title is required" })}
@@ -86,7 +86,7 @@ const ProjectForm = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700">Description</label>
+            <label className="block text-gray-700">Description <span className="text-red-500">*</span></label>
             <textarea
               {...register("description", { required: "Description is required" })}
               className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
@@ -99,7 +99,7 @@ const ProjectForm = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700">Project URL</label>
+            <label className="block text-gray-700">Project URL <span className="text-red-500">*</span></label>
             <input
               type="url"
               {...register("projectUrl", { required: "Project URL is required" })}
@@ -113,36 +113,19 @@ const ProjectForm = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700">HomePage Image URL</label>
-            <input
-              type="url"
-              {...register("imageUrl", { required: "Project image URL is required" })}
-              className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
-                errors.imageUrl ? "border-red-500" : "border-gray-300"
-              }`}
-            />
-            {errors.imageUrl && (
-              <span className="text-red-500 text-sm">{errors.imageUrl.message}</span>
-            )}
-          </div>
-
-          <div>
             <label className="block text-gray-700">GitHub URL</label>
             <input
               type="url"
-              {...register("githubUrl", { required: "GitHub URL is required" })}
+              {...register("githubUrl")}
               className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
                 errors.githubUrl ? "border-red-500" : "border-gray-300"
               }`}
             />
-            {errors.githubUrl && (
-              <span className="text-red-500 text-sm">{errors.githubUrl.message}</span>
-            )}
           </div>
 
           {/* Technologies Array */}
           <div>
-            <label className="block text-gray-700">Technologies</label>
+            <label className="block text-gray-700">Technologies <span className="text-red-500">*</span></label>
             {fields.map((field, index) => (
               <div key={field.id} className="flex items-center space-x-2 mt-2">
                 <input
@@ -172,7 +155,7 @@ const ProjectForm = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+            className=" w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
           >
             Submit
           </button>

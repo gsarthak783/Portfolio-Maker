@@ -62,7 +62,6 @@ const experienceSchema = new mongoose.Schema({
     title: { type: String, required: true, trim: true },
     description: { type: String, trim: true },
     projectUrl: { type: String, trim: true },
-    imageUrl: { type: String, trim: true },
     githubUrl: { type: String, trim: true },
     technologies: [{ type: String, trim: true }], // List of tech used
   })

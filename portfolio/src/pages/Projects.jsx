@@ -33,9 +33,9 @@ const ProjectCard = ({ title, description, imageUrl, projectUrl, githubUrl, tech
           ))}
         </div>
         <div className="card-actions justify-end mt-4">
-          <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-error btn-sm">
+         {githubUrl && <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-error btn-sm">
             GitHub
-          </a>
+          </a> } 
           <a href={projectUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm">
             Visit Project
           </a>

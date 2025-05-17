@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dicebear/avataaars": "^9.2.2",
+    "@dicebear/collection": "^9.2.2",
+    "@dicebear/core": "^9.2.2",
     "@react-three/drei": "^9.115.0",
     "@react-three/fiber": "^8.17.10",
     "axios": "^1.7.7",

@@ -19,6 +19,7 @@ import PublicRoute from './PrivateRoute/PublicRoute';
 import ProtectedRoute from './PrivateRoute/ProtectedRoute';
 import PersonalInfo from './components/PersonalInfoForm';
 import EducationForm from './components/EducationForm';
+import AvatarPage from './components/AvatarPage';
 
 
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
         <Route path='certificate-form' element={<ProtectedRoute><CertificateForm/></ProtectedRoute>} />
         <Route path ='personal-info' element={<ProtectedRoute><PersonalInfo/></ProtectedRoute>} />
         <Route path='education-form' element={<ProtectedRoute><EducationForm/></ProtectedRoute>} />
+        <Route path='avatar' element={<ProtectedRoute><AvatarPage/></ProtectedRoute>} />
 
       </Routes>
 
