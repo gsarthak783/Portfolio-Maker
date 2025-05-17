@@ -192,14 +192,14 @@ const ResumeDisplay = () => {
       )}
     </div>
 
-       <div className="flex justify-center p-2 mb-4 print:hidden">
+       {/* <div className="flex justify-center p-2 mb-4 print:hidden">
         <button
           onClick={downloadResume}
           className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded shadow"
         >
           Download PDF
         </button>
-      </div>
+      </div> */}
 
     </div>
     
