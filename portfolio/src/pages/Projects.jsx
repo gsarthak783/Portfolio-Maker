@@ -77,7 +77,7 @@ const Projects = () => {
           <span className="loading loading-spinner loading-lg text-primary"></span>
         </div>
       ) : (
-        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
           {data.map((project, index) => (
             <ProjectCard
               key={index}
