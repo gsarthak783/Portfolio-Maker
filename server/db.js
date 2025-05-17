@@ -132,6 +132,7 @@ const experienceSchema = new mongoose.Schema({
     twitter: { type: String, trim: true },
     email: { type: String, trim: true },
     resume: { type: String, trim: true },
+    website: { type: String, trim: true }
   });
 
   const personalInfoSchema = new mongoose.Schema({
@@ -141,13 +142,29 @@ const experienceSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true, trim: true },
     address: { type: String, trim: true },
     summary: { type: String, required: true, trim: true },
+    intro: { type: String, required: true, trim: true },
+    photo: { type: String, trim: true }, // URL to profile photo
+    languages: [{
+    name: { type: String, trim: true },
+    proficiency: { type: String, trim: true } // e.g., Native, Fluent, Intermediate
+  }]
   });
+
+  const referenceSchema = new mongoose.Schema({
+  name: { type: String, required: true, trim: true },
+  designation: { type: String, trim: true }, // e.g., Senior Software Engineer
+  relation: { type: String, required: true, trim: true }, // e.g., Former Manager, Mentor
+  contact: { type: String, required: true, trim: true }, // phone or email
+  organization: { type: String, trim: true }, // optional, e.g., Google Inc.
+});
+
   
   const UserSchema = new mongoose.Schema({
     name: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true, trim: true },
     password: { type: String, required: true }, // Should be hashed
     resume: {
+      references: {type:[referenceSchema], default:[]},
       personalInfo: personalInfoSchema,
       experiences: {type:[experienceSchema], default:[]},
       projects:{type:[projectSchema], default:[]} ,
