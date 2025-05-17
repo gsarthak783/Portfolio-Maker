@@ -14,6 +14,7 @@ import { useEffect } from 'react'
 import ResumePage from './pages/ResumePage'
 import ContactPage from './pages/ContactPage'
 import Education from './pages/Education'
+import ResumeDisplay from './pages/Resume'
 function App() {
   
   
@@ -39,6 +40,7 @@ function App() {
           <Route path="/:email/resume" element={<ResumePage/>} />
           <Route path="/:email/contact" element={<ContactPage/>} />
         <Route path ="/:email/education/" element={<Education/>} />
+        <Route path ="/:email/resume-display" element={<ResumeDisplay/>} />
 
         </Routes>
         <Footer />

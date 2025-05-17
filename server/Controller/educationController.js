@@ -38,17 +38,23 @@ const postData = async (req, res) => {
 
 // Delete a Education by ID
 const deleteData = async (req, res) => {
-    let _id = req.body._id;
+    let {email, _id} = req.body;
     console.log("Received ID for deletion:", _id, req.body);
 
     try {
-        const deletedEducation = await Education.findByIdAndDelete(_id);
+        const updatedUser = await User.findOneAndUpdate(
+            { email: email },
+            {
+                $pull: { "resume.education": { _id: _id } }
+            },
+            { new: true }
+        );
 
-        if (!deletedEducation) {
-            return res.status(404).json({ error: "Education detail not found" });
+        if (!updatedUser) {
+            return res.status(404).json({ error: "User not found" });
         }
 
-        res.status(200).send({ message: 'Education detail deleted successfully', payload: deletedEducation });
+        res.status(200).json({ message: "Education detail deleted successfully", payload: updatedUser });
     } catch (error) {
         console.error("Error deleting education detail:", error);
         res.status(500).json({ error: "Internal server error" });

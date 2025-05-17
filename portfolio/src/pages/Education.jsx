@@ -6,10 +6,14 @@ const Education = () => {
   const { userData, isLoading } = useSelector((state) => state.userState);
 
   useEffect(() => {
-    if (!isLoading) {
-      setEducationList(userData.resume?.education || []);
+    if (!isLoading && userData?.resume?.education) {
+      const reversedEducation = userData.resume.education.slice().reverse();
+      setEducationList(reversedEducation);
+    } else {
+      setEducationList([]);
     }
   }, [isLoading, userData]);
+  
 
   if (isLoading) {
     return (
