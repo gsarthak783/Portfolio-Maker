@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import ResumePreview from "./ResumePreview";
 
 const ResumeDisplay = () => {
   const { userData } = useSelector((state) => state.userState);
@@ -200,7 +201,9 @@ const ResumeDisplay = () => {
           Download PDF
         </button>
       </div> */}
-
+    {/* <div className="p-4">
+      <ResumePreview selectedThemeKey="india" userData={userData}/>
+    </div> */}
     </div>
     
   );
