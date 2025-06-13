@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useRef} from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import ResumePreview from "./ResumePreview";
+import html2pdf from 'html2pdf.js';
+
 
 const ResumeDisplay = () => {
   const { userData } = useSelector((state) => state.userState);
@@ -36,12 +38,41 @@ const ResumeDisplay = () => {
   }
 };
 
+const printRef = useRef();
+
+  const handleDownload = () => {
+  if (!printRef.current) {
+    console.error("Ref not found");
+    return;
+  }
+
+  const element = printRef.current;
+
+  // Use setTimeout to allow Tailwind styles to apply fully
+  setTimeout(() => {
+    html2pdf()
+      .set({
+        margin: [0.5, 0.5],
+        filename: 'resume.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          logging: true
+        },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+      })
+      .from(element)
+      .save();
+  }, 300); // Wait a little to ensure DOM + styles are fully applied
+};
+
 
   const fullName = `${personalInfo?.firstName || ""} ${personalInfo?.lastName || ""}`;
 
   return (
     <div>
-      <div className="bg-white max-w-[794px] mx-auto p-10 shadow-md print:shadow-none print:p-0 print:max-w-full print:mx-0 font-sans text-gray-900 text-sm leading-relaxed">
+      <div  className="bg-white max-w-[794px] mx-auto p-10 shadow-md print:shadow-none print:p-0 print:max-w-full print:mx-0 font-sans text-gray-900 text-sm leading-relaxed">
       
       {/* Header */}
       <header className="text-center mb-4">
@@ -69,7 +100,7 @@ const ResumeDisplay = () => {
       {/* Summary */}
       {personalInfo?.summary && (
         <section className="mb-4">
-          <h2 className="text-lg font-semibold mb-1">Summary</h2>
+          <h2  className="text-lg font-semibold mb-1">Summary</h2>
           <p>{personalInfo.summary}</p>
         </section>
       )}
@@ -192,10 +223,10 @@ const ResumeDisplay = () => {
         </section>
       )}
     </div>
-
+      
        {/* <div className="flex justify-center p-2 mb-4 print:hidden">
         <button
-          onClick={downloadResume}
+          onClick={handleDownload}
           className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded shadow"
         >
           Download PDF
