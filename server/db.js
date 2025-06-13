@@ -138,6 +138,7 @@ const experienceSchema = new mongoose.Schema({
   const personalInfoSchema = new mongoose.Schema({
     firstName: { type: String, required: true, trim: true },
     lastName: { type: String, trim: true },
+    gender: { type: String, required: true, trim: true },
     contactNumber: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true, trim: true },
     address: { type: String, trim: true },

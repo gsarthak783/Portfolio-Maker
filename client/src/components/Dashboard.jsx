@@ -37,26 +37,30 @@ const Dashboard = () => {
     <div className="min-h-screen bg-slate-100 p-6 flex flex-col">
       {/* Top Right Username and Logout Button */}
       {user !== null ? (
-        <div className="flex flex-col items-end space-y-4 mb-6">
-      
-        <div className="text-right">
-          <span className="text-blue-600 hover:underline mx-2">
-            <a href={`https://user-portfolio-alpha.vercel.app/${email}`} target="_blank" rel="noopener noreferrer">
-              Portfolio URL
-            </a>
-          </span>
+  <div className="flex justify-between items-center mb-6 bg-white p-4 rounded-lg">
+    {/* Left: Avatar */}
+    <div>
+      <img src="/male.png" alt="Avatar" className="w-16 h-16 rounded-full" />
+    </div>
 
-          {/* Copy Button */}
+    {/* Right: Portfolio URL and Copy button */}
+    <div className="text-right space-y-2">
+      <a
+        href={`https://user-portfolio-alpha.vercel.app/${email}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-600 hover:underline"
+      >
+        Portfolio URL
+      </a>
+      <br />
       <button onClick={copyToClipboard} className="btn btn-sm btn-outline btn-primary">
         {copied ? "Copied!" : "📋 Copy"}
       </button>
-        </div>
-      </div>
-      ):(
-        <>
+    </div>
+  </div>
+) : null}
 
-        </>
-      )}
      
 
       {/* Main Content: 4 Cards */}

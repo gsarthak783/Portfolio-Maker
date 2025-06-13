@@ -79,6 +79,52 @@ const PersonalInfo = () => {
           </div>
 
           <div>
+            <label className="block text-gray-700">
+              Gender <span className="text-red-600">*</span>
+            </label>
+
+            <div className={`mt-2 flex gap-6 ${!isEditing && "opacity-60 pointer-events-none"}`}>
+              <label className="flex items-center space-x-2 text-black">
+                <input
+                  type="radio"
+                  value="Male"
+                  {...register("gender", { required: "Gender is required" })}
+                  disabled={!isEditing}
+                  className="accent-blue-600"
+                />
+                <span>Male</span>
+              </label>
+
+              <label className="flex items-center space-x-2 text-black">
+                <input
+                  type="radio"
+                  value="Female"
+                  {...register("gender", { required: "Gender is required" })}
+                  disabled={!isEditing}
+                  className="accent-pink-500"
+                />
+                <span>Female</span>
+              </label>
+
+              <label className="flex items-center space-x-2 text-black">
+                <input
+                  type="radio"
+                  value="Other"
+                  {...register("gender", { required: "Gender is required" })}
+                  disabled={!isEditing}
+                  className="accent-purple-500"
+                />
+                <span>Other</span>
+              </label>
+            </div>
+
+            {errors.gender && (
+              <span className="text-red-500 text-sm">{errors.gender.message}</span>
+            )}
+          </div>
+
+
+          <div>
             <label className="block text-gray-700">Contact Number <span className="text-red-600">*</span></label>
             <input
               type="text"
