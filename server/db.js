@@ -143,7 +143,7 @@ const experienceSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true, trim: true },
     address: { type: String, trim: true },
     summary: { type: String, required: true, trim: true },
-    intro: { type: String, required: true, trim: true },
+    intro: { type: String,  trim: true },
     photo: { type: String, trim: true }, // URL to profile photo
     languages: [{
     name: { type: String, trim: true },
