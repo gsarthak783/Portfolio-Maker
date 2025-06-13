@@ -72,7 +72,7 @@ const printRef = useRef();
 
   return (
     <div>
-      <div  className="bg-white max-w-[794px] mx-auto p-10 shadow-md print:shadow-none print:p-0 print:max-w-full print:mx-0 font-sans text-gray-900 text-sm leading-relaxed">
+      <div ref={printRef}  className="bg-white max-w-[794px] mx-auto p-10 shadow-md print:shadow-none print:p-0 print:max-w-full print:mx-0 font-sans text-gray-900 text-sm leading-relaxed">
       
       {/* Header */}
       <header className="text-center mb-4">

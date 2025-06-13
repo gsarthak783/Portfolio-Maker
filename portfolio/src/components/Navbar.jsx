@@ -24,7 +24,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col print:hidden">
       {/* Navbar */}
       <nav className="navbar bg-base-100  px-4 fixed w-full z-50">
         <div className="flex-1">
