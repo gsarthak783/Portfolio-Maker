@@ -1,5 +1,6 @@
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import './App.css'
 import Homepage from './pages/Homepage'
 import Portfolio from './pages/Portfolio'
@@ -26,10 +27,20 @@ function App() {
   // }
   // , []);
 
+  const ScrollToTop = () => {
+    const { pathname } = useLocation();
+    
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+  
+    return null;
+  };
+
   return (
     <>
       <Router>
-      
+      <ScrollToTop />
         <Navbar />
         <Routes>
           <Route path="/" element={<Homepage />} />
