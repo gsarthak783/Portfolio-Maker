@@ -100,7 +100,7 @@ const FooterLinksForm = () => {
 
            {/* Resume */}
           <div>
-            <label className="block text-gray-700 font-medium">Resume URL</label>
+            <label className="block text-gray-700 font-medium">Resume URL (Google Drive)</label>
             <input
               type="url"
               {...register("resume", {

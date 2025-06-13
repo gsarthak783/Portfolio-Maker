@@ -70,7 +70,7 @@ const ExperienceForm = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* Form Fields */}
           <div>
-            <label className="block text-gray-700">Company Name</label>
+            <label className="block text-gray-700">Company Name <span className="text-red-600">*</span></label>
             <input
               type="text"
               {...register("companyName", { required: "Company name is required" })}
@@ -84,7 +84,7 @@ const ExperienceForm = () => {
           </div>
 
           <div>
-             <label className="block text-gray-700">Role</label>
+             <label className="block text-gray-700">Role <span className="text-red-600">*</span></label>
         <input
               type="text"
               {...register("role", { required: "Role is required" })}
@@ -98,7 +98,7 @@ const ExperienceForm = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700">Duration</label>
+            <label className="block text-gray-700">Duration <span className="text-red-600">*</span></label>
             <input
               type="text"
               {...register("duration", { required: "Duration is required" })}
@@ -112,7 +112,7 @@ const ExperienceForm = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700">Company Logo (URL)</label>
+            <label className="block text-gray-700">Company Logo (URL) <span className="text-red-600">*</span></label>
             <input
               type="url"
               {...register("companyLogo", { required: "Company logo is required" })}
@@ -126,7 +126,7 @@ const ExperienceForm = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700">Company URL</label>
+            <label className="block text-gray-700">Company URL <span className="text-red-600">*</span></label>
             <input
               type="url"
               {...register("companyUrl", { required: "Company URL is required" })}
@@ -144,7 +144,7 @@ const ExperienceForm = () => {
 
           {/* Summary Points */}
           <div>
-            <label className="block text-gray-700">Summary Points</label>
+            <label className="block text-gray-700">Summary Points <span className="text-red-600">*</span></label>
             {fields.map((field, index) => (
               <div key={field.id} className="flex items-center space-x-2 mt-2">
                 <input

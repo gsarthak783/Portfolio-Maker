@@ -84,7 +84,7 @@ const EducationForm = () => {
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <label className="block text-gray-700">Title*</label>
+            <label className="block text-gray-700">Title <span className="text-red-600">*</span></label>
             <input
               type="text"
               {...register("title", { required: "Title is required" })}
@@ -96,7 +96,7 @@ const EducationForm = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700">Institute Name*</label>
+            <label className="block text-gray-700">Institute Name <span className="text-red-600">*</span></label>
             <input
               type="text"
               {...register("instituteName", {
@@ -110,7 +110,7 @@ const EducationForm = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700">From Year*</label>
+            <label className="block text-gray-700">From Year <span className="text-red-600">*</span></label>
             <input
               type="month"
               {...register("fromYear", { required: "From year is required" })}
@@ -122,7 +122,7 @@ const EducationForm = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700">To Year*</label>
+            <label className="block text-gray-700">To Year <span className="text-red-600">*</span></label>
             <input
               type="month"
               {...register("toYear", { required: "To year is required" })}
@@ -134,7 +134,7 @@ const EducationForm = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700">Grade*</label>
+            <label className="block text-gray-700">Grade <span className="text-red-600">*</span></label>
             <input
               type="text"
               {...register("grade", { required: "Grade is required" })}

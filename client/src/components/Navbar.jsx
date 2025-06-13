@@ -18,6 +18,7 @@ const Navbar = () => {
     await signOut(auth);
     localStorage.removeItem('name');
     localStorage.removeItem('email');
+     localStorage.removeItem('gender');
     navigate('/');
 
   };

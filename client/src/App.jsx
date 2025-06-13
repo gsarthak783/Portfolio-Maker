@@ -1,5 +1,6 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 import Background from './components/Background';
 import Login from './components/Login';
@@ -23,10 +24,21 @@ import AvatarPage from './components/AvatarPage';
 
 
 const App = () => {
+
+  const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
+
   return (
     <div className="relative min-h-screen bg-background text-text">
       <BrowserRouter>
-    
+    <ScrollToTop />
        <Navbar/>
     
       <Routes>
