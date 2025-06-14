@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { auth } from '../firebase/Firebase';
-import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+import { signInWithEmailAndPassword, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup, getAdditionalUserInfo } from 'firebase/auth';
 import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -63,6 +64,33 @@ const Login = () => {
     }
   };
 
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const additionalInfo = getAdditionalUserInfo(result);
+      // console.log("Google User Info:", user, additionalInfo);
+
+      localStorage.setItem('name', user.displayName);
+      localStorage.setItem('email', user.email);
+
+      if(additionalInfo.isNewUser) {
+      const data = {
+          name: user.displayName,
+          email: user.email,
+          password: user.uid, // Use UID as a temporary password
+        };
+      await axios.post('https://portfolio-server-two-tawny.vercel.app/user/post-data', data);
+    }
+      navigate('/dashboard');
+    } catch (err) {
+      console.error("Google Sign-in Error:", err);
+      setLoginError("Google sign-in failed. Try again.");
+    }
+  };
+
+
   return (
     <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -99,6 +127,18 @@ const Login = () => {
           >
             Login
           </button>
+
+           <div className="mt-4">
+        <button
+          type="button"
+          onClick={handleGoogleLogin}
+          className="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 text-black py-2 rounded-lg hover:bg-gray-100 transition duration-200"
+        >
+          <img src="./google.svg" alt="Google" className="w-5 h-5" />
+          Continue with Google
+        </button>
+      </div>
+          
         </form>
 
         {loginError && (

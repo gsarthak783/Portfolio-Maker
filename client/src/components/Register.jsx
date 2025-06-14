@@ -1,6 +1,8 @@
 import React,{useState} from 'react';
 import { useForm } from 'react-hook-form';
-import { createUserWithEmailAndPassword,updateProfile, signOut, sendEmailVerification} from 'firebase/auth';
+import { createUserWithEmailAndPassword,updateProfile, signOut, sendEmailVerification,
+  GoogleAuthProvider, signInWithPopup, fetchSignInMethodsForEmail,signInWithEmailAndPassword,
+  linkWithCredential} from 'firebase/auth';
 import { auth } from '../firebase/Firebase';
 import { useNavigate,Link } from 'react-router-dom';
 import axios from 'axios';
@@ -51,6 +53,52 @@ const Register = () => {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+  const provider = new GoogleAuthProvider();
+
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const googleUser = result.user;
+    console.log("Google User:", googleUser);
+    // Check what sign-in methods exist for this email
+    const signInMethods = await fetchSignInMethodsForEmail(auth, googleUser.email);
+    console.log("Sign-in methods for email:", signInMethods);
+    if (signInMethods.includes('password')) {
+      // User has already registered with email/password
+      // Ask them to sign in using email/password, then link Google
+
+      alert("You already signed up with email/password. Please log in first to link your Google account.");
+
+      // Optionally, you could prefill the email on the login page
+      navigate('/login?email=' + googleUser.email);
+
+      // Sign them out to avoid confusion
+      await auth.signOut();
+      return;
+    }
+
+    // If it's a new user or only signed in with Google before
+    const data = {
+      name: googleUser.displayName,
+      email: googleUser.email,
+      password: googleUser.uid, // Use UID as a temporary password
+      // photoURL: googleUser.photoURL
+    };
+    console.log("Data to send:", data);
+     const response = await axios.post('https://portfolio-server-two-tawny.vercel.app/user/post-data', data);
+     console.log(response.data)
+     await signOut(auth);
+     navigate('/login')
+
+  } catch (error) {
+    console.error("Google Sign-In Error:", error);
+    await signOut(auth);
+     navigate('/login')
+  }
+
+  
+};
+
   return (
     <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -95,6 +143,16 @@ const Register = () => {
           >
             Register
           </button>
+         <div className="mt-4">
+        <button
+          type="button"
+          onClick={handleGoogleSignIn}
+          className="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 text-black py-2 rounded-lg hover:bg-gray-100 transition duration-200"
+        >
+          <img src="./google.svg" alt="Google" className="w-5 h-5" />
+          Continue with Google
+        </button>
+      </div>
         </form>
 
         {registerError && <p className=" mt-2 text-red-500 text-md text-center">{registerError}</p>}
