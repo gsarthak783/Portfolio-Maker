@@ -24,7 +24,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-white shadow-md fixed top-0 w-full z-50 ">
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Left Section: Home */}
         {!user ? (

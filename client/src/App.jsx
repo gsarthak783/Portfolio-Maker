@@ -40,7 +40,7 @@ const App = () => {
       <BrowserRouter>
     <ScrollToTop />
        <Navbar/>
-    
+    <div className="pt-16">
       <Routes>
       <Route path='/' element={<PublicRoute><Home/></PublicRoute>} />
       {/* <Route path='/:email' element={<Home/>} /> */}
@@ -57,6 +57,8 @@ const App = () => {
         <Route path='avatar' element={<ProtectedRoute><AvatarPage/></ProtectedRoute>} />
 
       </Routes>
+    </div>
+      
 
       <Footer/>
      
