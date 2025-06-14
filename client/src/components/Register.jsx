@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import { useForm } from 'react-hook-form';
-import { createUserWithEmailAndPassword,updateProfile, signOut} from 'firebase/auth';
+import { createUserWithEmailAndPassword,updateProfile, signOut, sendEmailVerification} from 'firebase/auth';
 import { auth } from '../firebase/Firebase';
 import { useNavigate,Link } from 'react-router-dom';
 import axios from 'axios';
@@ -24,7 +24,10 @@ const Register = () => {
         console.log("Name Added") 
        const response = await axios.post('https://portfolio-server-two-tawny.vercel.app/user/post-data',data) 
        console.log(response.data)
+       await sendEmailVerification(auth.currentUser);
+        console.log("Email Verification Sent")
        await signOut(auth);
+      
         navigate('/login') 
         
 
