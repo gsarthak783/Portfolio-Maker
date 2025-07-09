@@ -1,7 +1,6 @@
 import React from "react";
 import { sendEmailVerification } from "firebase/auth";
 import { auth } from "../firebase/Firebase";
-
 import { verificationEmailTrigger } from "./Register";
 
 const EmailVerify = () => {

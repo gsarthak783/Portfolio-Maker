@@ -4,10 +4,12 @@ import { auth } from '../firebase/Firebase';
 import { signInWithEmailAndPassword, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup, getAdditionalUserInfo } from 'firebase/auth';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../context/userContext';
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
+  const {login, user, logout} = useAuth();
 
   const [showResetDialog, setShowResetDialog] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
@@ -25,14 +27,30 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
+
+      const response = await axios.get(`https://portfolio-server-two-tawny.vercel.app/user/get-data/${data.email}`);
+      const userData = response.data;
+      console.log("User Data:", userData.payload);
+      login(userData.payload);
+
       const user = await signInWithEmailAndPassword(auth, data.email, data.password);
       localStorage.setItem('name', user.user.displayName);
       localStorage.setItem('email', user.user.email);
+
+      const fetchUserData = async () => {
+            try {
+              
+            } catch (error) {
+              console.error("Error fetching user data:", error);
+            }
+          };
+          fetchUserData();
+      
       setLoginError(''); // clear any previous error
       navigate('/dashboard');
     } catch (err) {
       console.log("Login Error:", err);
-
+      logout();
       switch (err.code) {
         case 'auth/user-not-found':
           setLoginError('No account found with this email.');

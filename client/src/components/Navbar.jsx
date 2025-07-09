@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase/Firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { useAuth } from '../context/userContext';
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const {logout} = useAuth();
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -14,8 +16,9 @@ const Navbar = () => {
     return () => unsubscribe();
   }, []);
 
-  const logout = async () => {
+  const handleLogout = async () => {
     await signOut(auth);
+    logout();
     localStorage.removeItem('name');
     localStorage.removeItem('email');
      localStorage.removeItem('gender');
@@ -58,7 +61,7 @@ const Navbar = () => {
             <>
               <span className="text-lg font-semibold text-blue-600">{user?.displayName}</span>
               <button
-                onClick={logout}
+                onClick={handleLogout}
                 className="btn btn-outline btn-error text-red-600 font-semibold hover:bg-red-600 hover:text-white transition duration-200"
               >
                 Logout

@@ -1,6 +1,7 @@
 import React , {useEffect} from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import { useLocation } from "react-router-dom";
+import { UserProvider } from './context/userContext';
 
 import Background from './components/Background';
 import Login from './components/Login';
@@ -24,6 +25,7 @@ import AvatarPage from './components/AvatarPage';
 import EmailVerified from './components/EmailVerified';
 
 
+
 const App = () => {
 
   const ScrollToTop = () => {
@@ -37,6 +39,10 @@ const App = () => {
 };
 
   return (
+
+    <UserProvider>
+
+   
     <div className="relative min-h-screen bg-background text-text">
       <BrowserRouter>
     <ScrollToTop />
@@ -68,6 +74,8 @@ const App = () => {
       </BrowserRouter>
      
     </div>
+
+     </UserProvider>
   );
 }
 
