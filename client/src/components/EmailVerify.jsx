@@ -12,7 +12,8 @@ const EmailVerify = () => {
     const handleClick = async () => {
         try {
             setMessage("");
-           const res = await verificationEmailTrigger(user.email,user.uid)
+            const htmlBody = await fetch('/verificationEmail.html').then(res => res.text())
+            const res = await verificationEmailTrigger(user.email,user.uid, htmlBody, "Verify your Email!")
             // alert("Verification email sent!");
             if(res.success)
             {

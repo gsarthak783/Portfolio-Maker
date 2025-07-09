@@ -32,7 +32,8 @@ const Register = () => {
        const response = await axios.post('https://portfolio-server-two-tawny.vercel.app/user/post-data',updatedData) 
        console.log(response.data)
       //  await sendEmailVerification(auth.currentUser);
-       await verificationEmailTrigger(data.email,uid);
+         const htmlBody = await fetch('/welcomeEmail.html').then(res => res.text())
+       await verificationEmailTrigger(data.email,uid, htmlBody, "Welcome to ShowCaze!");
         console.log("Email Verification Sent")
         navigate('/login') 
         
@@ -93,6 +94,8 @@ const Register = () => {
      const response = await axios.post('https://portfolio-server-two-tawny.vercel.app/user/post-data', data);
      console.log(response.data)
      await signOut(auth);
+      const htmlBody = await fetch('/welcomeEmail.html').then(res => res.text())
+       await verificationEmailTrigger(data.email,data.uid, htmlBody, "Welcome to ShowCaze!");
      navigate('/login')
 
   } catch (error) {
@@ -174,16 +177,15 @@ const Register = () => {
 
 export default Register;
 
-export const verificationEmailTrigger = async (email,uid) =>{
+export const verificationEmailTrigger = async (email,uid, htmlBody, subject) =>{
       try {
-        const htmlBody = await fetch('/welcomeEmail.html').then(res => res.text())
          const verificationLink = `https://showcaze.vercel.app/verify-email?uid=${uid}`;
         const emailHtml = htmlBody.replace("{{VERIFICATION_URL}}", verificationLink);
         // console.log(htmlBody)
        const customEmail = await axios.post('https://mailforge-service.vercel.app/api/v1/send-custom-email',{
           "from": `"ShowCaze" <showcaze.portfolio@gmail.com>`,
           "to": email,
-          "subject": "Welcome to ShowCaze!",
+          "subject": subject,
           "text": "Welcome to ShowCaze! Please verify your email to continue.",
           "html": emailHtml,
 
