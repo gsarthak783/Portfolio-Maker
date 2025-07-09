@@ -24,6 +24,8 @@ export default function EmailVerified() {
         if(res.data?.success){
              console.log("User verified");
              setStatus("success"); 
+        } else if(res.data.message === "User already verified"){
+            setStatus("success")
         }
         else{
             setStatus("error"); 

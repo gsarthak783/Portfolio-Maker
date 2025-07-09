@@ -148,13 +148,6 @@ const Register = () => {
             Register
           </button>
 
-           <button
-            type="button" onClick={verificationEmailTrigger}
-            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
-          >
-            Email
-          </button>
-
          <div className="mt-4">
         <button
           type="button"
