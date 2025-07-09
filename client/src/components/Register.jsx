@@ -14,10 +14,10 @@ const Register = () => {
 
   const [registerError, setRegisterError] = useState('');
 
-  const emailTrigger = async (email) =>{
+  const verificationEmailTrigger = async (email,uid) =>{
       try {
         const htmlBody = await fetch('/welcomeEmail.html').then(res => res.text())
-         const verificationLink = `https://showcaze.vercel.app/verify-email?uid=${"uid"}`;
+         const verificationLink = `https://showcaze.vercel.app/verify-email?uid=${uid}`;
         const emailHtml = htmlBody.replace("{{VERIFICATION_URL}}", verificationLink);
         // console.log(htmlBody)
        const customEmail = await axios.post('https://mailforge-service.vercel.app/api/v1/send-custom-email',{
@@ -61,15 +61,14 @@ const Register = () => {
             displayName: data.name
           })
         console.log("Name Added") 
-
+      const uid = auth.currentUser.uid;
+      await signOut(auth);
        const updatedData = {...data,uid:auth?.currentUser?.uid};
        const response = await axios.post('https://portfolio-server-two-tawny.vercel.app/user/post-data',updatedData) 
        console.log(response.data)
-       await sendEmailVerification(auth.currentUser);
-       
+      //  await sendEmailVerification(auth.currentUser);
+       await verificationEmailTrigger(data.email,uid);
         console.log("Email Verification Sent")
-       await signOut(auth);
-      
         navigate('/login') 
         
 
@@ -185,7 +184,7 @@ const Register = () => {
           </button>
 
            <button
-            type="button" onClick={emailTrigger}
+            type="button" onClick={verificationEmailTrigger}
             className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
           >
             Email
