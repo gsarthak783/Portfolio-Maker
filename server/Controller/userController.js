@@ -27,7 +27,7 @@ const postData = async (req,res) => {
 
 const verifyEmail = async (req, res) => {
   try {
-    const { uid } = req.query;
+    const { uid } = req.body;
 
     if (!uid) {
       return res.status(400).json({ message: "UID is required" });
