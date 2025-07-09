@@ -141,7 +141,7 @@ const Login = () => {
 
           <button
             type="submit" onClick={() => setLoginError('')}
-            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
+            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200"
           >
             Login
           </button>
@@ -150,7 +150,7 @@ const Login = () => {
         <button
           type="button"
           onClick={handleGoogleLogin}
-          className="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 text-black py-2 rounded-lg hover:bg-gray-100 transition duration-200"
+          className="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 text-black py-2 rounded-md hover:bg-gray-100 transition duration-200"
         >
           <img src="./google.svg" alt="Google" className="w-5 h-5" />
           Continue with Google

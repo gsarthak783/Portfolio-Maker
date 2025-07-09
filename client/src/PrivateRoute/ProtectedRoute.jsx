@@ -1,34 +1,19 @@
-// components/ProtectedRoute.jsx
-import React, { useEffect, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { Navigate } from 'react-router-dom';
-import { auth } from '../firebase/Firebase';
-import { useAuth } from '../context/userContext';
-import Spinner from '../components/Spinner';
-import EmailVerify from '../components/EmailVerify';
+import React from "react";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/userContext";
+import Spinner from "../components/Spinner";
+import EmailVerify from "../components/EmailVerify";
 
 const ProtectedRoute = ({ children }) => {
-  const [authChecked, setAuthChecked] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [emailVerified, setEmailVerified] = useState(false);
-  const {user} = useAuth();
+  const { user, loading } = useAuth();
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (googleUser) => {
-      setIsAuthenticated(!!googleUser);
-      console.log("User email status:", user.isVerified);
-      if (googleUser) {
-        setEmailVerified(user.isVerified);
-      }
-      setAuthChecked(true);
-    });
+  if (loading) return <Spinner />;
 
-    return () => unsubscribe();
-  }, []);
+  if (!user) return <Navigate to="/login" />;
 
-  if (!authChecked) return <Spinner />;
+  if (!user.isVerified) return <EmailVerify />;
 
-  return isAuthenticated && emailVerified ? children : isAuthenticated && !emailVerified? <EmailVerify/> : <Navigate to="/login" />;
+  return children;
 };
 
 export default ProtectedRoute;

@@ -1,48 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { auth } from '../firebase/Firebase';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
-import axios from "axios";
+import { useAuth } from "../context/userContext";
 
 const Dashboard = () => {
-  const [user, setUser] = useState(null);
-  const [userData, setUserData] = useState(null);
+  
+  const {user} = useAuth();
+  const [userData, setUserData] = useState(user);
   const email = localStorage.getItem('email');
-  const gender = localStorage.getItem('gender') || userData?.resume?.personalInfo?.gender;;
-  const portfolioUrl = `https://user-portfolio-alpha.vercel.app/${email}`;
+  const gender = localStorage.getItem('gender') || user?.resume?.personalInfo?.gender;
+  const portfolioUrl = `https://user-portfolio-alpha.vercel.app/${user?.email}`;
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(portfolioUrl);
     setCopied(true);
     setTimeout(() => setCopied(false), 1000);
-  };
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get(`https://portfolio-server-two-tawny.vercel.app/user/get-data/${email}`);
-        const data = response.data;
-        console.log("User Data:", data.payload);
-        localStorage.setItem('gender', data.payload.resume?.personalInfo?.gender || 'Other');
-        setUserData(data.payload);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-    fetchUserData();
-
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  const handleLogout = async () => {
-    await signOut(auth);
-    localStorage.removeItem('name');
-    localStorage.removeItem('email');
   };
 
   return (
@@ -66,7 +38,7 @@ const Dashboard = () => {
       />
       <div>
         <h2 className="text-xl font-semibold text-black">
-          {user?.displayName || "User"}
+          {user?.name || "User"}
         </h2>
         <p className="text-sm text-gray-500">{email}</p>
       </div>

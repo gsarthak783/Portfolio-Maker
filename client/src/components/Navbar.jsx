@@ -31,12 +31,12 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Left Section: Home */}
         {!user ? (
-          <Link to='/' className="text-2xl font-semibold text-blue-600 hover:text-blue-800 transition duration-300">
-          Portfolio
+          <Link to='/' className="text-2xl font-semibold text-gray-600  transition duration-300">
+          ShowCaze
         </Link>
         ) : (
-          <Link to='dashboard' className="text-2xl font-semibold text-blue-600 hover:text-blue-800 transition duration-300">
-            Portfolio
+          <Link to='dashboard' className="text-2xl font-semibold text-gray-600 h transition duration-300">
+             ShowCaze
           </Link>
         )}
 

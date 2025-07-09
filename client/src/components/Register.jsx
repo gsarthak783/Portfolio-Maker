@@ -85,7 +85,8 @@ const Register = () => {
     const data = {
       name: googleUser.displayName,
       email: googleUser.email,
-      password: googleUser.uid, // Use UID as a temporary password
+      password: googleUser.uid, //temp password
+      uid:googleUser.uid 
       // photoURL: googleUser.photoURL
     };
     console.log("Data to send:", data);
@@ -143,7 +144,7 @@ const Register = () => {
           </div>
           <button
             type="submit" onClick={() => setRegisterError('')}
-            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
+            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200"
           >
             Register
           </button>
@@ -152,7 +153,7 @@ const Register = () => {
         <button
           type="button"
           onClick={handleGoogleSignIn}
-          className="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 text-black py-2 rounded-lg hover:bg-gray-100 transition duration-200"
+          className="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 text-black py-2 rounded-md hover:bg-gray-100 transition duration-200"
         >
           <img src="./google.svg" alt="Google" className="w-5 h-5" />
           Continue with Google

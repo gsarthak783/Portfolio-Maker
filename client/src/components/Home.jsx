@@ -119,7 +119,7 @@ const Home = () => {
       <section className="py-20 bg-gray-50  text-center">
         <h2 className="text-4xl font-bold text-blue-600 mb-6">Start Creating Your Portfolio Today</h2>
         <p className="mb-6 text-lg">Join hundreds of developers showcasing their talent beautifully.</p>
-        <Link to="/register" className="btn btn-primary btn-lg text-white">Create My Portfolio</Link>
+        <Link to="/register" className="btn btn-primary btn-lg text-white">Create My ShowCaze</Link>
       </section>
     </div>
   );
