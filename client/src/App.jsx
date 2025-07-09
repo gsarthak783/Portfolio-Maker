@@ -21,6 +21,7 @@ import ProtectedRoute from './PrivateRoute/ProtectedRoute';
 import PersonalInfo from './components/PersonalInfoForm';
 import EducationForm from './components/EducationForm';
 import AvatarPage from './components/AvatarPage';
+import EmailVerified from './components/EmailVerified';
 
 
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
       {/* <Route path='/:email' element={<Home/>} /> */}
         <Route path='login' element={<PublicRoute><Login/></PublicRoute>} />
         <Route path='register' element={<PublicRoute><Register/></PublicRoute>} />
+        <Route path='verify-email' element={<EmailVerified/>} />
         
         <Route path='dashboard' element={<ProtectedRoute><Dashboard/></ProtectedRoute>} />
         <Route path='experience-form' element={<ProtectedRoute><ExperienceForm/></ProtectedRoute>} />

@@ -7,12 +7,47 @@ import { auth } from '../firebase/Firebase';
 import { useNavigate,Link } from 'react-router-dom';
 import axios from 'axios';
 
+
 const Register = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
 
   const [registerError, setRegisterError] = useState('');
 
+  const emailTrigger = async () =>{
+      try {
+        const htmlBody = await fetch('/welcomeEmail.html').then(res => res.text())
+        // console.log(htmlBody)
+       const customEmail = await axios.post('https://mailforge-service.onrender.com/api/v1/send-custom-email',{
+          "from": `"ShowCaze" <showcaze.portfolio@gmail.com>`,
+          "to": "gsarthak783@gmail.com",
+          "subject": "Welcome to ShowCaze!",
+          "text": "This is the plain text version of the email.",
+          "html": htmlBody,
+
+          "smtp": {
+            "host": "smtp.gmail.com",
+          
+            "port": 587,
+            "secure": false,
+            "auth": {
+              "user": "showcaze.portfolio@gmail.com",
+              "pass": "gfjpvhxcllbzpljb"
+    }
+  }
+}
+,{
+    
+    headers: {
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0IjoibXktcHJvamVjdCIsInJvbGUiOiJlbWFpbC1zZW5kZXIiLCJpYXQiOjE3NTIwODAzODksImV4cCI6MTc1OTg1NjM4OX0.8KTfQs1FN9tsnct2KZ54mTky36O-bskIRkZKsWBOpYI`,
+      "Content-Type": "application/json"
+    }
+  });
+       console.log(customEmail);
+      } catch (error) {
+        console.log(error)
+      }
+  }
 
   const onSubmit = async (data) => {
     
@@ -24,9 +59,12 @@ const Register = () => {
             displayName: data.name
           })
         console.log("Name Added") 
-       const response = await axios.post('https://portfolio-server-two-tawny.vercel.app/user/post-data',data) 
+
+       const updatedData = {...data,uid:auth?.currentUser?.uid};
+       const response = await axios.post('https://portfolio-server-two-tawny.vercel.app/user/post-data',updatedData) 
        console.log(response.data)
        await sendEmailVerification(auth.currentUser);
+       
         console.log("Email Verification Sent")
        await signOut(auth);
       
@@ -143,6 +181,14 @@ const Register = () => {
           >
             Register
           </button>
+
+           {/* <button
+            type="button" onClick={emailTrigger}
+            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
+          >
+            Email
+          </button> */}
+          
          <div className="mt-4">
         <button
           type="button"
