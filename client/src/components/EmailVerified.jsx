@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, useParams } from "react-router-dom";
 
 
 export default function EmailVerified() {
   const [searchParams] = useSearchParams();
+//   const {uid} = useParams();
   const [status, setStatus] = useState("verifying"); // 'verifying', 'success', 'error'
   const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ export default function EmailVerified() {
 
       try {
         const res = await axios.post("https://portfolio-server-two-tawny.vercel.app/user/verify-email",{uid})
-        if(res.success){
+        if(res.data?.success){
              console.log("User verified");
              setStatus("success"); 
         }
