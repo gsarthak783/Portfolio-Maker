@@ -164,7 +164,7 @@ const experienceSchema = new mongoose.Schema({
     name: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true, trim: true },
     password: { type: String, required: true }, // Should be hashed
-    isVerified: {type: String, default:false},
+    isVerified: {type: Boolean, default:false},
     uid: { type: String, trim: true },
     resume: {
       references: {type:[referenceSchema], default:[]},
