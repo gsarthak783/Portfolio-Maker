@@ -25,6 +25,36 @@ const postData = async (req,res) => {
     res.status(201).send({message:'User data created',payload:result})
 }
 
+const verifyEmail = async (req, res) => {
+  try {
+    const { uid } = req.query;
+
+    if (!uid) {
+      return res.status(400).json({ message: "UID is required" });
+    }
+
+    // Find the user
+    const user = await User.findOne({ uid });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (user.isVerified) {
+      return res.status(200).json({ message: "User already verified" });
+    }
+
+    // Update the user
+    user.isVerified = true;
+    await user.save();
+
+    return res.status(200).json({ success:true ,message: "Email successfully verified" });
+  } catch (error) {
+    console.error("Error verifying email:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
 const deleteData = async (req,res) => { 
     let id = req.body.id
     console.log(id);
@@ -34,4 +64,4 @@ const deleteData = async (req,res) => {
     res.status(200).send({ message: 'User deleted successfully', payload: deletedProject });
 
 }
-module.exports = {getData,postData, deleteData}
+module.exports = {getData,postData, deleteData, verifyEmail}

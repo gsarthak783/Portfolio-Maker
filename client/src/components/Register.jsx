@@ -14,16 +14,18 @@ const Register = () => {
 
   const [registerError, setRegisterError] = useState('');
 
-  const emailTrigger = async () =>{
+  const emailTrigger = async (email) =>{
       try {
         const htmlBody = await fetch('/welcomeEmail.html').then(res => res.text())
+         const verificationLink = `https://showcaze.vercel.app/verify-email?uid=${"uid"}`;
+        const emailHtml = htmlBody.replace("{{VERIFICATION_URL}}", verificationLink);
         // console.log(htmlBody)
-       const customEmail = await axios.post('https://mailforge-service.onrender.com/api/v1/send-custom-email',{
+       const customEmail = await axios.post('https://mailforge-service.vercel.app/api/v1/send-custom-email',{
           "from": `"ShowCaze" <showcaze.portfolio@gmail.com>`,
-          "to": "gsarthak783@gmail.com",
+          "to": email,
           "subject": "Welcome to ShowCaze!",
-          "text": "This is the plain text version of the email.",
-          "html": htmlBody,
+          "text": "Welcome to ShowCaze! Please verify your email to continue.",
+          "html": emailHtml,
 
           "smtp": {
             "host": "smtp.gmail.com",
@@ -31,15 +33,15 @@ const Register = () => {
             "port": 587,
             "secure": false,
             "auth": {
-              "user": "showcaze.portfolio@gmail.com",
-              "pass": "gfjpvhxcllbzpljb"
+              "user": import.meta.env.VITE_EMAIL_USER,
+              "pass": import.meta.env.VITE_EMAIL_PASS
     }
   }
 }
 ,{
     
     headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0IjoibXktcHJvamVjdCIsInJvbGUiOiJlbWFpbC1zZW5kZXIiLCJpYXQiOjE3NTIwODAzODksImV4cCI6MTc1OTg1NjM4OX0.8KTfQs1FN9tsnct2KZ54mTky36O-bskIRkZKsWBOpYI`,
+      Authorization: `Bearer ${import.meta.env.VITE_JWT_TOKEN}`,
       "Content-Type": "application/json"
     }
   });
@@ -182,13 +184,13 @@ const Register = () => {
             Register
           </button>
 
-           {/* <button
+           <button
             type="button" onClick={emailTrigger}
             className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
           >
             Email
-          </button> */}
-          
+          </button>
+
          <div className="mt-4">
         <button
           type="button"

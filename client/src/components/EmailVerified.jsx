@@ -1,30 +1,31 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 
 export default function EmailVerified() {
   const [searchParams] = useSearchParams();
-  const [status, setStatus] = useState("success"); // 'verifying', 'success', 'error'
+  const [status, setStatus] = useState("verifying"); // 'verifying', 'success', 'error'
   const navigate = useNavigate();
 
   useEffect(() => {
     const verifyEmail = async () => {
-      const uid = searchParams.get("uid"); // or use 'email' if you passed email
-
+      const uid = searchParams.get("uid"); 
+        console.log(uid)
       if (!uid) {
-        // setStatus("error");
+        setStatus("error");
         return;
       }
 
       try {
-        // Update Firestore user's isVerified field
-        // const userRef = doc(db, "users", uid);
-        // await updateDoc(userRef, {
-        //   isVerified: true,
-        // });
-
-        console.log("User verified");
-        setStatus("success");
+        const res = await axios.post("https://portfolio-server-two-tawny.vercel.app/user/verify-email",{uid})
+        if(res.success){
+             console.log("User verified");
+             setStatus("success"); 
+        }
+        else{
+            setStatus("error"); 
+        }
       } catch (error) {
         console.error("Error verifying user:", error);
         setStatus("error");
