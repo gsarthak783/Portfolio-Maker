@@ -46,9 +46,9 @@ const verifyEmail = async (req, res) => {
 
     // Update the user
     user.isVerified = true;
-    await user.save();
+   const updated =  await user.save();
 
-    return res.status(200).json({ success:true ,message: "Email successfully verified" });
+    return res.status(200).json({ success:true ,message: "Email successfully verified", body:updated });
   } catch (error) {
     console.error("Error verifying email:", error);
     return res.status(500).json({ message: "Server error" });
