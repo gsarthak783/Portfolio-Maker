@@ -20,6 +20,7 @@ export default function EmailVerified() {
 
       try {
         const res = await axios.post("https://portfolio-server-two-tawny.vercel.app/user/verify-email",{uid})
+        console.log(res)
         if(res.data?.success){
              console.log("User verified");
              setStatus("success"); 
