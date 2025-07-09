@@ -2,6 +2,7 @@ import React from "react";
 import { sendEmailVerification } from "firebase/auth";
 import { auth } from "../firebase/Firebase";
 import { set } from "react-hook-form";
+import { verificationEmailTrigger } from "./Register";
 
 const EmailVerify = () => {
     const user = auth.currentUser;
@@ -12,9 +13,13 @@ const EmailVerify = () => {
     const handleClick = async () => {
         try {
             setMessage("");
-            await sendEmailVerification(auth.currentUser);
+           const res = await verificationEmailTrigger(user.email,user.uid)
             // alert("Verification email sent!");
-            setMessage("Verification email sent!");
+            if(res.success)
+            {
+               setMessage("Verification email sent!");
+            }
+           
         } catch (error) {
             console.error("Error sending verification email:", error);
             setError("Failed to send email. Please try again later.");
