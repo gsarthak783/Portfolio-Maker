@@ -1,6 +1,5 @@
-import React , {useEffect} from 'react';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import { useLocation } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { UserProvider } from './context/userContext';
 
 import Background from './components/Background';
@@ -11,7 +10,7 @@ import Footer from './components/Footer';
 import Register from './components/Register';
 import Experiences from './components/Experiences';
 import ExperienceForm from './components/ExperienceForm';
-import PrivateRoute from '../src/PrivateRoute/PrivateRoute'
+import PrivateRoute from '../src/PrivateRoute/PrivateRoute';
 import Dashboard from './components/Dashboard';
 import ProjectForm from './components/ProjectForm';
 import Project from './components/Projects';
@@ -23,14 +22,11 @@ import PersonalInfo from './components/PersonalInfoForm';
 import EducationForm from './components/EducationForm';
 import AvatarPage from './components/AvatarPage';
 import EmailVerified from './components/EmailVerified';
+import NotFound from './components/NotFound';
 
-
-
-const App = () => {
-
-  const ScrollToTop = () => {
+const ScrollToTop = () => {
   const { pathname } = useLocation();
-  
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
@@ -38,45 +34,150 @@ const App = () => {
   return null;
 };
 
+const MainLayout = ({ children }) => (
+  <>
+    <Navbar />
+    <div className="pt-16">{children}</div>
+    <Footer />
+  </>
+);
+
+const App = () => {
   return (
-
     <UserProvider>
+      <div className="relative min-h-screen bg-background text-text">
+        <BrowserRouter>
+          <ScrollToTop />
+          <Routes>
+            {/* Standalone Page */}
+            <Route path="verify-email" element={<EmailVerified />} />
 
-   
-    <div className="relative min-h-screen bg-background text-text">
-      <BrowserRouter>
-    <ScrollToTop />
-       <Navbar/>
-    <div className="pt-16">
-      <Routes>
-      <Route path='/' element={<PublicRoute><Home/></PublicRoute>} />
-      {/* <Route path='/:email' element={<Home/>} /> */}
-        <Route path='login' element={<PublicRoute><Login/></PublicRoute>} />
-        <Route path='register' element={<PublicRoute><Register/></PublicRoute>} />
-        <Route path='verify-email' element={<EmailVerified/>} />
-        
-        <Route path='dashboard' element={<ProtectedRoute><Dashboard/></ProtectedRoute>} />
-        <Route path='experience-form' element={<ProtectedRoute><ExperienceForm/></ProtectedRoute>} />
-        <Route path='project-form' element={<ProtectedRoute><ProjectForm/></ProtectedRoute>} />
-        <Route path='footer-form' element={<ProtectedRoute><FooterLinksForm/></ProtectedRoute>} />
-        <Route path='certificate-form' element={<ProtectedRoute><CertificateForm/></ProtectedRoute>} />
-        <Route path ='personal-info' element={<ProtectedRoute><PersonalInfo/></ProtectedRoute>} />
-        <Route path='education-form' element={<ProtectedRoute><EducationForm/></ProtectedRoute>} />
-        <Route path='avatar' element={<ProtectedRoute><AvatarPage/></ProtectedRoute>} />
-
-      </Routes>
-    </div>
-      
-
-      <Footer/>
-     
-
-      </BrowserRouter>
-     
-    </div>
-
-     </UserProvider>
+            {/* Pages with Navbar + Footer */}
+            <Route
+              path="/"
+              element={
+                <MainLayout>
+                  <PublicRoute>
+                    <Home />
+                  </PublicRoute>
+                </MainLayout>
+              }
+            />
+            <Route
+              path="login"
+              element={
+                <MainLayout>
+                  <PublicRoute>
+                    <Login />
+                  </PublicRoute>
+                </MainLayout>
+              }
+            />
+            <Route
+              path="register"
+              element={
+                <MainLayout>
+                  <PublicRoute>
+                    <Register />
+                  </PublicRoute>
+                </MainLayout>
+              }
+            />
+            <Route
+              path="dashboard"
+              element={
+                <MainLayout>
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                </MainLayout>
+              }
+            />
+            <Route
+              path="experience-form"
+              element={
+                <MainLayout>
+                  <ProtectedRoute>
+                    <ExperienceForm />
+                  </ProtectedRoute>
+                </MainLayout>
+              }
+            />
+            <Route
+              path="project-form"
+              element={
+                <MainLayout>
+                  <ProtectedRoute>
+                    <ProjectForm />
+                  </ProtectedRoute>
+                </MainLayout>
+              }
+            />
+            <Route
+              path="footer-form"
+              element={
+                <MainLayout>
+                  <ProtectedRoute>
+                    <FooterLinksForm />
+                  </ProtectedRoute>
+                </MainLayout>
+              }
+            />
+            <Route
+              path="certificate-form"
+              element={
+                <MainLayout>
+                  <ProtectedRoute>
+                    <CertificateForm />
+                  </ProtectedRoute>
+                </MainLayout>
+              }
+            />
+            <Route
+              path="personal-info"
+              element={
+                <MainLayout>
+                  <ProtectedRoute>
+                    <PersonalInfo />
+                  </ProtectedRoute>
+                </MainLayout>
+              }
+            />
+            <Route
+              path="education-form"
+              element={
+                <MainLayout>
+                  <ProtectedRoute>
+                    <EducationForm />
+                  </ProtectedRoute>
+                </MainLayout>
+              }
+            />
+            <Route
+              path="avatar"
+              element={
+                <MainLayout>
+                  <ProtectedRoute>
+                    <AvatarPage />
+                  </ProtectedRoute>
+                </MainLayout>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <MainLayout>
+                  
+                    <NotFound />
+                  
+                </MainLayout>
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </UserProvider>
   );
-}
+};
 
 export default App;
