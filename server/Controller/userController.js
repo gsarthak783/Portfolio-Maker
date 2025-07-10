@@ -1,6 +1,24 @@
 const {User} = require('../db')
 const bcrypt = require('bcryptjs')
 
+
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find(); // Retrieves all users from the collection
+        res.status(200).json({
+            message: "All users fetched successfully",
+            payload: users
+        });
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        res.status(500).json({
+            message: "Error fetching users",
+            error: error.message
+        });
+    }
+};
+
+
 const getData = async (req,res) => {
 
     let email = req.params
@@ -64,4 +82,4 @@ const deleteData = async (req,res) => {
     res.status(200).send({ message: 'User deleted successfully', payload: deletedProject });
 
 }
-module.exports = {getData,postData, deleteData, verifyEmail}
+module.exports = {getAllUsers,getData,postData, deleteData, verifyEmail}

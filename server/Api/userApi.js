@@ -1,8 +1,9 @@
 const express = require('express')
 const user = express.Router();
 const expressAsyncHandler = require('express-async-handler');
-const { getData, postData, deleteData, verifyEmail} = require('../Controller/userController');
+const {getAllUsers, getData, postData, deleteData, verifyEmail} = require('../Controller/userController');
  
+user.get('/get-users',expressAsyncHandler(getAllUsers))
 
 user.get('/get-data/:email',expressAsyncHandler(getData))
 
