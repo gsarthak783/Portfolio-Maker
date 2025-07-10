@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useAuth } from "../context/userContext";
 
 const PersonalInfo = () => {
   const {
@@ -14,6 +15,7 @@ const PersonalInfo = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const email = localStorage.getItem("email");
+  const {user, setUser} = useAuth();
 
   useEffect(() => {
     const fetchPersonalInfo = async () => {
@@ -35,6 +37,18 @@ const PersonalInfo = () => {
       { email, data }
     );
     console.log("Response:", response.data);
+
+    if (response.data?.payload) {
+      // Safely update the personalInfo field
+      const updatedUser = {
+        ...user,
+        resume: {
+          ...user.resume,
+          personalInfo: response.data.payload,
+        },
+      }
+      setUser(updatedUser);
+    }
    setRefresh(!refresh); // Trigger refresh to fetch updated data
     setIsEditing(false);
   } catch (error) {

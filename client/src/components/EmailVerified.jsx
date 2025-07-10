@@ -12,7 +12,7 @@ export default function EmailVerified() {
   useEffect(() => {
     const verifyEmail = async () => {
       const uid = searchParams.get("uid"); 
-        console.log(uid)
+        // console.log(uid)
       if (!uid) {
         setStatus("error");
         return;
@@ -20,9 +20,9 @@ export default function EmailVerified() {
 
       try {
         const res = await axios.post("https://portfolio-server-two-tawny.vercel.app/user/verify-email",{uid})
-        console.log(res)
+        // console.log(res)
         if(res.data?.success){
-             console.log("User verified");
+            //  console.log("User verified");
              setStatus("success"); 
         } else if(res.data.message === "User already verified"){
             setStatus("success")
@@ -31,7 +31,7 @@ export default function EmailVerified() {
             setStatus("error"); 
         }
       } catch (error) {
-        console.error("Error verifying user:", error);
+        // console.error("Error verifying user:", error);
         setStatus("error");
       }
     };
