@@ -79,7 +79,7 @@ const deleteData = async (req,res) => {
     let {uid} = req.body
     console.log(uid);
     
-    const deletedUser = User.findOneAndDelete({ uid });
+    const deletedUser = await User.findOneAndDelete({ uid });
 
     if (!deletedUser) {
       return res.status(404).json({ message: "User not found" });
