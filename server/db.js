@@ -144,7 +144,7 @@ const experienceSchema = new mongoose.Schema({
     address: { type: String, trim: true },
     summary: { type: String, required: true, trim: true },
     intro: { type: String,  trim: true },
-    photo: { type: String, trim: true }, // URL to profile photo
+    photoUrl: { type: String, trim: true }, // URL to profile photo
     languages: [{
     name: { type: String, trim: true },
     proficiency: { type: String, trim: true } // e.g., Native, Fluent, Intermediate
@@ -159,6 +159,32 @@ const experienceSchema = new mongoose.Schema({
   organization: { type: String, trim: true }, // optional, e.g., Google Inc.
 });
 
+  const testimonialSchema = new mongoose.Schema({
+  name: { type: String, required: true, trim: true },
+  quote: { type: String, required: true, trim: true },
+  company: { type: String, trim: true }
+});
+
+// Awards
+const awardSchema = new mongoose.Schema({
+  title: { type: String, required: true, trim: true },
+  year: { type: String, trim: true },
+  description: { type: String, trim: true }
+});
+
+// Blog Posts
+const blogSchema = new mongoose.Schema({
+  title: { type: String, required: true, trim: true },
+  url: { type: String, required: true, trim: true },
+  summary: { type: String, trim: true }
+});
+
+// Activity Logs
+const activityLogSchema = new mongoose.Schema({
+  action: { type: String, required: true, trim: true },
+  timestamp: { type: Date, default: Date.now }
+});
+
   
   const UserSchema = new mongoose.Schema({
     name: { type: String, required: true, trim: true },
@@ -166,6 +192,7 @@ const experienceSchema = new mongoose.Schema({
     password: { type: String, required: true }, // Should be hashed
     isVerified: {type: Boolean, default:false},
     uid: { type: String, trim: true },
+
     resume: {
       references: {type:[referenceSchema], default:[]},
       personalInfo: personalInfoSchema,
@@ -174,9 +201,51 @@ const experienceSchema = new mongoose.Schema({
       certificates :{type:[certificateSchema], default:[]},
       education: {type:[educationSchema], default:[]},
       footerLinks: FooterLinksSchema,
-      skills:[{type:String, trim:true}]
+      skills:[{type:String, trim:true}],
+      testimonials: { type: [testimonialSchema], default: [] },
+      hobbies: { type: [String], default: [] },
+      awards: { type: [awardSchema], default: [] },
+      blogs: { type: [blogSchema], default: [] },
+
     },
-  });
+
+        // 1. Basic Meta Info
+      lastLoginAt: { type: Date },
+      role: { type: String, default: 'user' },
+      status: { type: String, default: 'active' }, // active, suspended, deleted
+      loginCount: { type: Number, default: 0 },
+      provider: { type: String, trim: true },
+
+      // 2. Portfolio / Site Customization
+      theme: { type: String, default: 'default' },
+      isPublic: { type: Boolean, default: true },
+
+      // 3. Tracking & Analytics
+      viewsCount: { type: Number, default: 0 },
+      downloadsCount: { type: Number, default: 0 },
+      lastViewedAt: { type: Date },
+      activityLogs: { type: [activityLogSchema], default: [] },
+
+      // 4. Security / Verification
+      emailVerifiedAt: { type: Date },
+      phoneNumber: { type: String, trim: true },
+      twoFactorEnabled: { type: Boolean, default: false },
+      resetPasswordToken: { type: String, trim: true },
+
+      // 5. Professional Details Expansion
+      openToWork: { type: Boolean, default: false },
+      expectedSalary: { type: String, trim: true },
+      preferredJobLocation: { type: [String], default: [] },
+      languagesProficiency: { type: [String], default: [] },
+
+      // 6. System Management
+       deletedAt: { type: Date, default: null },
+       isBanned: { type: Boolean, default: false },
+       notes: { type: String, trim: true },
+       createdBy: { type: String, default: 'user', enum: ['user', 'admin'] },
+       updatedBy: { type: String, default: 'user', enum: ['user', 'admin'] },
+
+  },{ timestamps: true });
 
 const User = mongoose.model('user', UserSchema);
 
