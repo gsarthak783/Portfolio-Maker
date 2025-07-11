@@ -76,7 +76,7 @@ const verifyEmail = async (req, res) => {
 const deleteData = async (req,res) => { 
     
   try{
-    let uid = req.body
+    let uid = req.body.uid
     console.log(uid);
     
     const deletedUser = User.findOneAndDelete({ uid });
