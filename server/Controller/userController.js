@@ -1,5 +1,6 @@
 const {User} = require('../db')
 const bcrypt = require('bcryptjs')
+const admin = require("firebase-admin");
 
 
 const getAllUsers = async (req, res) => {
@@ -78,7 +79,10 @@ const deleteData = async (req,res) => {
   try{
     let {uid} = req.body
     console.log(uid);
-    
+
+    // Delete from Firebase Auth (Admin SDK)
+    await admin.auth().deleteUser(uid);
+    //Delete from Database
     const deletedUser = await User.findOneAndDelete({ uid });
 
     if (!deletedUser) {
