@@ -74,12 +74,24 @@ const verifyEmail = async (req, res) => {
 };
 
 const deleteData = async (req,res) => { 
-    let id = req.body.id
-    console.log(id);
     
-    const deletedProject = await User.findByIdAndDelete(id);
+  try{
+    let uid = req.body
+    console.log(uid);
+    
+    const deletedUser = User.findOneAndDelete({ uid });
 
-    res.status(200).send({ message: 'User deleted successfully', payload: deletedProject });
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ message: "User deleted successfully", payload: deletedUser });
+  }
+  
+   catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 
 }
 module.exports = {getAllUsers,getData,postData, deleteData, verifyEmail}
