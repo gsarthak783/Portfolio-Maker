@@ -1,6 +1,6 @@
 const {User} = require('../db')
 const bcrypt = require('bcryptjs')
-const admin = require("firebase-admin");
+const admin = require("../firebaseAdmin");
 
 
 const getAllUsers = async (req, res) => {
