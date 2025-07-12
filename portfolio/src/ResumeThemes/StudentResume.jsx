@@ -1,0 +1,133 @@
+import React from "react";
+import { useSelector } from "react-redux";
+
+const StudentResume = () => {
+  const { userData } = useSelector((state) => state.userState);
+  const {
+    resume: {
+      personalInfo,
+      education = [],
+      projects = [],
+      skills = [],
+      certificates = [],
+      footerLinks = {},
+    } = {},
+  } = userData || {};
+
+  const fullName = `${personalInfo?.firstName || ""} ${personalInfo?.lastName || ""}`;
+
+  return (
+    <div
+      className="bg-white max-w-[794px] mx-auto p-10 text-gray-800 text-sm leading-relaxed border"
+      style={{
+        fontFamily: "Georgia, serif",
+        backgroundColor: "#fdfdfd",
+        color: "#1a202c",
+      }}
+    >
+      {/* Header */}
+      <header className="text-center mb-6">
+        <h1 className="text-3xl font-bold text-blue-700">{fullName}</h1>
+        <div className="flex flex-wrap justify-center gap-4 mt-2 text-sm text-gray-600">
+          {personalInfo?.email && (
+            <a href={`mailto:${personalInfo.email}`} className="hover:underline">{personalInfo.email}</a>
+          )}
+          {footerLinks?.linkedin && (
+            <a href={footerLinks.linkedin} target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
+          )}
+          {footerLinks?.github && (
+            <a href={footerLinks.github} target="_blank" rel="noopener noreferrer" className="hover:underline">GitHub</a>
+          )}
+          {personalInfo?.contactNumber && <span>{personalInfo.contactNumber}</span>}
+        </div>
+      </header>
+
+      {/* Education */}
+      {education.length > 0 && (
+        <section className="mb-6">
+          <h2 className="text-lg font-semibold mb-2 text-blue-700">Education</h2>
+          {education.map((edu, idx) => (
+            <div key={idx} className="mb-2">
+              <p className="font-semibold">{edu.title}</p>
+              <p className="italic">{edu.instituteName}</p>
+              <p className="text-xs text-gray-600">
+                {edu.fromYear} - {edu.toYear} | Grade: {edu.grade}
+              </p>
+            </div>
+          ))}
+        </section>
+      )}
+
+      {/* Projects */}
+      {projects.length > 0 && (
+        <section className="mb-6">
+          <h2 className="text-lg font-semibold mb-2 text-blue-700">Projects</h2>
+          {projects.map((proj, idx) => (
+            <div key={idx} className="mb-2">
+              <p className="font-semibold">
+                {proj.projectUrl ? (
+                  <a href={proj.projectUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                    {proj.title}
+                  </a>
+                ) : (
+                  proj.title
+                )}
+              </p>
+              {proj.description && <p className="text-sm">{proj.description}</p>}
+              {proj.githubUrl && (
+                <p className="text-xs">
+                  Code: <a href={proj.githubUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{proj.githubUrl}</a>
+                </p>
+              )}
+            </div>
+          ))}
+        </section>
+      )}
+
+      {/* Skills */}
+      {skills.length > 0 && (
+        <section className="mb-6">
+          <h2 className="text-lg font-semibold mb-2 text-blue-700">Skills</h2>
+          <div className="flex flex-wrap gap-2">
+            {skills.map((skill, idx) => (
+              <span key={idx} className="px-2 py-1 bg-gray-200 rounded">{skill}</span>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Certifications */}
+      {certificates.length > 0 && (
+        <section className="mb-6">
+          <h2 className="text-lg font-semibold mb-2 text-blue-700">Certifications</h2>
+          {certificates.map((cert, idx) => (
+            <div key={idx} className="mb-2">
+              {cert.url ? (
+                <a href={cert.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 hover:underline">
+                  {cert.title}
+                </a>
+              ) : (
+                <p className="font-semibold">{cert.title}</p>
+              )}
+              <p className="text-xs text-gray-600 italic">{cert.issuer} — {new Date(cert.issueDate).toLocaleDateString()}</p>
+            </div>
+          ))}
+        </section>
+      )}
+
+      {/* Contact */}
+      {(personalInfo?.email || personalInfo?.contactNumber || personalInfo?.address) && (
+        <section className="mt-6">
+          <h2 className="text-lg font-semibold mb-2 text-blue-700">Contact</h2>
+          <ul className="text-sm">
+            {personalInfo.email && <li>Email: {personalInfo.email}</li>}
+            {personalInfo.contactNumber && <li>Phone: {personalInfo.contactNumber}</li>}
+            {personalInfo.address && <li>Address: {personalInfo.address}</li>}
+          </ul>
+        </section>
+      )}
+    </div>
+  );
+};
+
+export default StudentResume;

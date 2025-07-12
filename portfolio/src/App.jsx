@@ -23,6 +23,10 @@ import GermanyResume from './ResumeThemes/GermayResume'
 import EuropeEuropass from './ResumeThemes/EuropeResume'
 import UKResume from './ResumeThemes/UKResume'
 import ResearchResume from './ResumeThemes/ResearchResume'
+import StudentResume from './ResumeThemes/StudentResume'
+import CanadaResume from './ResumeThemes/CanadaResume'
+import ITProfessionalResume from './ResumeThemes/ITProfessionalResume'
+import AustraliaResume from './ResumeThemes/AustraliaResume'
 
 
 function App() {
@@ -70,6 +74,10 @@ function App() {
           <Route path ="/:email/resume-europe" element={<EuropeEuropass/>} />
           <Route path ="/:email/resume-uk" element={<UKResume/>} />
           <Route path ="/:email/resume-research" element={<ResearchResume/>} />
+          <Route path ="/:email/resume-student" element={<StudentResume/>} />
+          <Route path ="/:email/resume-canada" element={<CanadaResume/>} />
+          <Route path ="/:email/resume-itprofessional" element={<ITProfessionalResume/>} />
+          <Route path ="/:email/resume-australia" element={<AustraliaResume/>} />
 
         </Routes>
         <Footer />
