@@ -16,6 +16,13 @@ import ResumePage from './pages/ResumePage'
 import ContactPage from './pages/ContactPage'
 import Education from './pages/Education'
 import ResumeDisplay from './pages/Resume'
+import USResume from './ResumeThemes/USResume'
+import IndiaResume from './ResumeThemes/IndiaResume'
+import JapanResume from './ResumeThemes/JapanResume'
+import GermanyResume from './ResumeThemes/GermayResume'
+import EuropeEuropass from './ResumeThemes/EuropeResume'
+
+
 function App() {
   
   
@@ -52,6 +59,13 @@ function App() {
           <Route path="/:email/contact" element={<ContactPage/>} />
         <Route path ="/:email/education/" element={<Education/>} />
         <Route path ="/:email/resume-display" element={<ResumeDisplay/>} />
+
+        
+          <Route path ="/:email/resume-us" element={<USResume/>} />
+          <Route path ="/:email/resume-india" element={<IndiaResume/>} />
+          <Route path ="/:email/resume-japan" element={<JapanResume/>} />
+          <Route path ="/:email/resume-germany" element={<GermanyResume/>} />
+          <Route path ="/:email/resume-europe" element={<EuropeEuropass/>} />
 
         </Routes>
         <Footer />
