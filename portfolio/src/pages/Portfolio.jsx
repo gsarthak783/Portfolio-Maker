@@ -2,6 +2,7 @@ import React , {use, useEffect} from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserData } from '../slices/userDataSlice';
+import NotFound from './NotFound';
 
 const Portfolio = () => {
     const { email } = useParams();
@@ -18,6 +19,10 @@ const Portfolio = () => {
     const {userData} = useSelector((state) => state.userState);
     console.log(userData,);
     
+   if(userData === undefined)
+    {
+      return <NotFound />
+    } 
 
   return (
     <div className="min-h-screen bg-base-100 text-base-content">
