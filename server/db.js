@@ -206,8 +206,10 @@ const activityLogSchema = new mongoose.Schema({
       hobbies: { type: [String], default: [] },
       awards: { type: [awardSchema], default: [] },
       blogs: { type: [blogSchema], default: [] },
-
+      resumeTheme: { type: String, default: 'classic' },
     },
+      
+    portfolioTheme: { type: String, default: 'light' },
 
         // 1. Basic Meta Info
       lastLoginAt: { type: Date },
