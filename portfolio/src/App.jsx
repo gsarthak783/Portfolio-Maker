@@ -21,6 +21,8 @@ import IndiaResume from './ResumeThemes/IndiaResume'
 import JapanResume from './ResumeThemes/JapanResume'
 import GermanyResume from './ResumeThemes/GermayResume'
 import EuropeEuropass from './ResumeThemes/EuropeResume'
+import UKResume from './ResumeThemes/UKResume'
+import ResearchResume from './ResumeThemes/ResearchResume'
 
 
 function App() {
@@ -60,12 +62,14 @@ function App() {
         <Route path ="/:email/education/" element={<Education/>} />
         <Route path ="/:email/resume-display" element={<ResumeDisplay/>} />
 
-        
+
           <Route path ="/:email/resume-us" element={<USResume/>} />
           <Route path ="/:email/resume-india" element={<IndiaResume/>} />
           <Route path ="/:email/resume-japan" element={<JapanResume/>} />
           <Route path ="/:email/resume-germany" element={<GermanyResume/>} />
           <Route path ="/:email/resume-europe" element={<EuropeEuropass/>} />
+          <Route path ="/:email/resume-uk" element={<UKResume/>} />
+          <Route path ="/:email/resume-research" element={<ResearchResume/>} />
 
         </Routes>
         <Footer />
