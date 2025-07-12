@@ -98,6 +98,7 @@ const Login = () => {
           name: user.displayName,
           email: user.email,
           password: user.uid, // Use UID as a temporary password
+          uid: user.uid
         };
       await axios.post('https://portfolio-server-two-tawny.vercel.app/user/post-data', data);
     }

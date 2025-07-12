@@ -64,47 +64,56 @@ const Register = () => {
   try {
     const result = await signInWithPopup(auth, provider);
     const googleUser = result.user;
+
     console.log("Google User:", googleUser);
-    // Check what sign-in methods exist for this email
+
+    // Check if the email has already signed up using password
     const signInMethods = await fetchSignInMethodsForEmail(auth, googleUser.email);
-    console.log("Sign-in methods for email:", signInMethods);
+    console.log("Sign-in methods:", signInMethods);
+
     if (signInMethods.includes('password')) {
-      // User has already registered with email/password
-      // Ask them to sign in using email/password, then link Google
+      // Already registered using email/password
+      alert("This email is already registered with a password. Please use email/password login.");
 
-      alert("You already signed up with email/password. Please log in first to link your Google account.");
-
-      // Optionally, you could prefill the email on the login page
-      navigate('/login?email=' + googleUser.email);
-
-      // Sign them out to avoid confusion
-      await auth.signOut();
+      await signOut(auth);
+      navigate('/login');
       return;
     }
 
-    // If it's a new user or only signed in with Google before
-    const data = {
+    // Else, it's either a new user or Google-only user
+    const userPayload = {
       name: googleUser.displayName,
       email: googleUser.email,
-      password: googleUser.uid, //temp password
-      uid:googleUser.uid 
-      // photoURL: googleUser.photoURL
+      password: googleUser.uid, // You may generate a secure random temp password if needed
+      uid: googleUser.uid,
     };
-    console.log("Data to send:", data);
-     const response = await axios.post('https://portfolio-server-two-tawny.vercel.app/user/post-data', data);
-     console.log(response.data)
-     await signOut(auth);
-      const htmlBody = await fetch('/welcomeEmail.html').then(res => res.text())
-       await verificationEmailTrigger(data.email,data.uid, htmlBody, "Welcome to ShowCaze!");
-     navigate('/login')
 
+    console.log("Sending user data to server:", userPayload);
+
+    const res = await axios.post(
+      "https://portfolio-server-two-tawny.vercel.app/user/post-data",
+      userPayload
+    );
+
+    console.log("Server response:", res.data);
+
+    // Send welcome/verification email
+    const htmlBody = await fetch("/welcomeEmail.html").then((res) => res.text());
+
+    await verificationEmailTrigger(
+      userPayload.email,
+      userPayload.uid,
+      htmlBody,
+      "Welcome to ShowCaze!"
+    );
+
+    await signOut(auth); // Clean session
+    navigate("/login");
   } catch (error) {
-    console.error("Google Sign-In Error:", error);
+    console.error("Google Sign-In Error:", error.message);
     await signOut(auth);
-     navigate('/login')
+    navigate("/login");
   }
-
-  
 };
 
   return (
