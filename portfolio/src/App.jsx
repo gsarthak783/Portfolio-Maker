@@ -50,7 +50,7 @@ function AppLayout() {
 
   return (
     <>
-      {isNotFound && <Navbar />}
+      {!isNotFound && <Navbar />}
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/:email" element={<Portfolio />} />

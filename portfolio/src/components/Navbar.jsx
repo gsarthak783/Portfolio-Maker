@@ -16,6 +16,7 @@ const Navbar = () => {
 
 
   const email = useSelector((state) => state.userState.userData?.email);
+  const {userData} = useSelector((state) => state.userState)
   console.log(email, "email2");
 
   const toggleThemeController = (event) => {
@@ -24,6 +25,7 @@ const Navbar = () => {
   };
 
   return (
+    
     <div className="flex flex-col print:hidden">
       {/* Navbar */}
       <nav className="navbar bg-base-100  px-4 fixed w-full z-50">
