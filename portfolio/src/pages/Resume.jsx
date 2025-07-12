@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
-// ✅ Corrected import name for EuropeEuropass
 import AustraliaResume from "../ResumeThemes/AustraliaResume";
 import CanadaResume from "../ResumeThemes/CanadaResume";
 import ClassicResume from "../ResumeThemes/ClassisResume";
@@ -17,6 +17,10 @@ import USResume from "../ResumeThemes/USResume";
 
 const ResumeDisplay = () => {
   const [selectedTheme, setSelectedTheme] = useState("classic");
+   const { userData } = useSelector((state) => state.userState);
+  
+   console.log(userData)
+  
 
   const renderResume = () => {
     switch (selectedTheme) {
@@ -51,12 +55,22 @@ const ResumeDisplay = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen text-gray-900">
+    <div className="min-h-screen bg-base-100 px-6 py-12">
       {/* Resume Preview */}
-      <div className="max-w-5xl mx-auto pt-10 px-4">{renderResume()}</div>
+       <div className="text-center mb-12">
+      <p className="text-lg text-primary uppercase tracking-wide font-semibold">
+        My Journey
+      </p>
+      <h2 className="text-4xl font-bold">Resume</h2>
+      <div className="w-24 mx-auto mt-2 h-1 bg-primary rounded"></div>
+    </div>
+
+    {userData !== undefined ? (
+      <>
+          <div className="max-w-5xl mx-auto px-4">{renderResume()}</div>
 
       {/* Theme Selector */}
-      <div className="flex justify-center mt-10 pb-10">
+      <div className="flex justify-center mt-10">
         <select
           value={selectedTheme}
           onChange={(e) => setSelectedTheme(e.target.value)}
@@ -77,6 +91,14 @@ const ResumeDisplay = () => {
           <option value="japan">Japan</option>
         </select>
       </div>
+      </>
+    ): (
+      <>
+        <p className="text-center text-gray-500">No Resume found.</p>
+      </>
+    )}
+
+      
     </div>
   );
 };

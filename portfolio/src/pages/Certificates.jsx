@@ -7,7 +7,7 @@ const Certificates = () => {
   const { userData, isLoading } = useSelector((state) => state.userState);
    useEffect(() => {
         if (!isLoading) {
-          setCertificates(userData.resume?.certificates || []);
+          setCertificates(userData?.resume?.certificates || []);
         }
       }, [isLoading, userData]);
   
@@ -81,7 +81,7 @@ const Certificates = () => {
             </div>
           ))
         ) : (
-          <p className="text-center text-gray-500">No certificates available.</p>
+          <p className="text-center text-gray-500">No certificate records found.</p>
         )}
       </div>
     </div>

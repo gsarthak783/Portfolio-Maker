@@ -52,7 +52,7 @@ const Projects = () => {
 
  useEffect(() => {
        if (!isLoading) {
-         setData(userData.resume?.projects || []);
+         setData(userData?.resume?.projects || []);
          setLoading(false);
        }
      }, [isLoading, userData]);
@@ -76,9 +76,9 @@ const Projects = () => {
         <div className="flex justify-center items-center h-40">
           <span className="loading loading-spinner loading-lg text-primary"></span>
         </div>
-      ) : (
+      ) : userData !== undefined ?  (
         <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
-          {data.map((project, index) => (
+          {data?.map((project, index) => (
             <ProjectCard
               key={index}
               title={project.title}
@@ -90,6 +90,10 @@ const Projects = () => {
             />
           ))}
         </div>
+      ): (
+        <>
+          <p className="text-center text-gray-500">No project records found.</p>
+        </>
       )}
     </div>
   );

@@ -11,7 +11,7 @@ const Experiences = () => {
  
     useEffect(() => {
       if (!isLoading) {
-        setData(userData.resume?.experiences || []);
+        setData(userData?.resume?.experiences || []);
       }
     }, [isLoading, userData]);
 
@@ -37,7 +37,8 @@ const Experiences = () => {
 
       {/* Experience List */}
       <div className="max-w-5xl mx-auto space-y-10">
-        {data?.map((experience, index) => (
+        {data.length > 0 ? (
+          data?.map((experience, index) => (
           <div
             key={index}
             className="card bg-neutral shadow-md hover:shadow-lg transition duration-300 p-6 border border-base-300"
@@ -93,7 +94,10 @@ const Experiences = () => {
               </a>
             </div>
           </div>
-        ))}
+        ))
+        ) : (
+           <p className="text-center text-gray-500">No experience records found.</p>
+        )}
       </div>
     </div>
   );
