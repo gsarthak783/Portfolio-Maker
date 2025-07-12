@@ -19,14 +19,16 @@ import ResumeDisplay from './pages/Resume'
 import USResume from './ResumeThemes/USResume'
 import IndiaResume from './ResumeThemes/IndiaResume'
 import JapanResume from './ResumeThemes/JapanResume'
-import GermanyResume from './ResumeThemes/GermayResume'
-import EuropeEuropass from './ResumeThemes/EuropeResume'
+import GermanyResume from './ResumeThemes/GermanyResume'
 import UKResume from './ResumeThemes/UKResume'
 import ResearchResume from './ResumeThemes/ResearchResume'
 import StudentResume from './ResumeThemes/StudentResume'
 import CanadaResume from './ResumeThemes/CanadaResume'
 import ITProfessionalResume from './ResumeThemes/ITProfessionalResume'
 import AustraliaResume from './ResumeThemes/AustraliaResume'
+import ModernResume from './ResumeThemes/ModernResume'
+import ClassicResume from './ResumeThemes/ClassisResume'
+import EuropeResume from './ResumeThemes/EuropeResume'
 
 
 function App() {
@@ -71,13 +73,15 @@ function App() {
           <Route path ="/:email/resume-india" element={<IndiaResume/>} />
           <Route path ="/:email/resume-japan" element={<JapanResume/>} />
           <Route path ="/:email/resume-germany" element={<GermanyResume/>} />
-          <Route path ="/:email/resume-europe" element={<EuropeEuropass/>} />
+          <Route path ="/:email/resume-europe" element={<EuropeResume/>} />
           <Route path ="/:email/resume-uk" element={<UKResume/>} />
           <Route path ="/:email/resume-research" element={<ResearchResume/>} />
           <Route path ="/:email/resume-student" element={<StudentResume/>} />
           <Route path ="/:email/resume-canada" element={<CanadaResume/>} />
           <Route path ="/:email/resume-itprofessional" element={<ITProfessionalResume/>} />
           <Route path ="/:email/resume-australia" element={<AustraliaResume/>} />
+          <Route path ="/:email/resume-modern" element={<ModernResume/>} />
+          <Route path ="/:email/resume-classic" element={<ClassicResume/>} />
 
         </Routes>
         <Footer />

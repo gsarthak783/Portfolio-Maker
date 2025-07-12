@@ -1,242 +1,83 @@
-import React, {useRef} from "react";
-import { useSelector } from "react-redux";
-import axios from "axios";
-import ResumePreview from "./ResumePreview";
-import html2pdf from 'html2pdf.js';
+import React, { useState } from "react";
 
+// ✅ Corrected import name for EuropeEuropass
+import AustraliaResume from "../ResumeThemes/AustraliaResume";
+import CanadaResume from "../ResumeThemes/CanadaResume";
+import ClassicResume from "../ResumeThemes/ClassisResume";
+import EuropeResume from "../ResumeThemes/EuropeResume";
+import GermanyResume from "../ResumeThemes/GermanyResume";
+import IndiaResume from "../ResumeThemes/IndiaResume";
+import ITProfessionalResume from "../ResumeThemes/ITProfessionalResume";
+import JapanResume from "../ResumeThemes/JapanResume";
+import ModernResume from "../ResumeThemes/ModernResume";
+import ResearchResume from "../ResumeThemes/ResearchResume";
+import StudentResume from "../ResumeThemes/StudentResume";
+import UKResume from "../ResumeThemes/UKResume";
+import USResume from "../ResumeThemes/USResume";
 
 const ResumeDisplay = () => {
-  const { userData } = useSelector((state) => state.userState);
-  const email = localStorage.getItem("email");
-  const {
-    resume: {
-      personalInfo,
-      education = [],
-      experiences = [],
-      projects = [],
-      certificates = [],
-      skills = [],
-      footerLinks = {}
-    } = {}
-  } = userData || {};
+  const [selectedTheme, setSelectedTheme] = useState("classic");
 
-  const downloadResume = async () => {
-  try {
-    const response = await axios.get(`https://portfolio-server-two-tawny.vercel.app/resume/download-resume/${email}`, {
-      responseType: 'blob',
-    });
-
-    const blob = new Blob([response.data], { type: 'application/pdf' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'resume.pdf';
-    a.click();
-    window.URL.revokeObjectURL(url);
-  } catch (err) {
-    console.error("Download error", err);
-  }
-};
-
-const printRef = useRef();
-
-  const handleDownload = () => {
-  if (!printRef.current) {
-    console.error("Ref not found");
-    return;
-  }
-
-  const element = printRef.current;
-
-  // Use setTimeout to allow Tailwind styles to apply fully
-  setTimeout(() => {
-    html2pdf()
-      .set({
-        margin: [0.5, 0.5],
-        filename: 'resume.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: {
-          scale: 2,
-          useCORS: true,
-          logging: true
-        },
-        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-      })
-      .from(element)
-      .save();
-  }, 300); // Wait a little to ensure DOM + styles are fully applied
-};
-
-
-  const fullName = `${personalInfo?.firstName || ""} ${personalInfo?.lastName || ""}`;
+  const renderResume = () => {
+    switch (selectedTheme) {
+      case "us":
+        return <USResume />;
+      case "canada":
+        return <CanadaResume />;
+      case "germany":
+        return <GermanyResume />;
+      case "europe":
+        return <EuropeResume />;
+      case "uk":
+        return <UKResume />;
+      case "research":
+        return <ResearchResume />;
+      case "student":
+        return <StudentResume />;
+      case "itProfessional":
+        return <ITProfessionalResume />;
+      case "australia":
+        return <AustraliaResume />;
+      case "modern":
+        return <ModernResume />;
+      case "japan":
+        return <JapanResume />;
+      case "india":
+        return <IndiaResume />;
+      case "classic":
+      default:
+        return <ClassicResume />;
+    }
+  };
 
   return (
-    <div>
-      <div ref={printRef}  className="bg-white max-w-[794px] mx-auto p-10 shadow-md print:shadow-none print:p-0 print:max-w-full print:mx-0 font-sans text-gray-900 text-sm leading-relaxed">
-      
-      {/* Header */}
-      <header className="text-center mb-4">
-        <h1 className="text-3xl font-bold">{fullName}</h1>
-        <div className="flex flex-wrap justify-center gap-4 mt-2 text-sm text-blue-700 print:text-black">
-          {personalInfo?.email && (
-            <a href={`mailto:${personalInfo.email}`} className="hover:underline">{personalInfo.email}</a>
-          )}
-          {personalInfo?.linkedin && (
-            <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
-          )}
-          {personalInfo?.github && (
-            <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="hover:underline">GitHub</a>
-          )}
-          {personalInfo?.phone && <span>{personalInfo.phone}</span>}
-        </div>
-        {personalInfo?.address && (
-          <p className="text-sm text-gray-700 mt-1">{personalInfo.address}</p>
-        )}
-      </header>
+    <div className="bg-white min-h-screen text-gray-900">
+      {/* Resume Preview */}
+      <div className="max-w-5xl mx-auto pt-10 px-4">{renderResume()}</div>
 
-      {/* Divider */}
-      <div className="border-t-2 border-gray-800 my-4"></div>
-
-      {/* Summary */}
-      {personalInfo?.summary && (
-        <section className="mb-4">
-          <h2  className="text-lg font-semibold mb-1">Summary</h2>
-          <p>{personalInfo.summary}</p>
-        </section>
-      )}
-
-      <div className="border-t-2 border-gray-800 my-4"></div>
-
-      {/* Education */}
-      <section className="mb-4">
-        <h2 className="text-lg font-semibold mb-2">Education</h2>
-        {education.length ? education.map((edu, idx) => (
-          <div key={idx} className="mb-2">
-            <p className="font-semibold">{edu.title}</p>
-            <p className="italic text-gray-700">{edu.instituteName}</p>
-            <p className="text-xs text-gray-600">{edu.fromYear} - {edu.toYear} | Grade: {edu.grade}</p>
-          </div>
-        )) : <p className="text-sm text-gray-500">No education details available.</p>}
-      </section>
-
-      <div className="border-t-2 border-gray-800 my-4"></div>
-
-      {/* Experience */}
-      <section className="mb-4">
-        <h2 className="text-lg font-semibold mb-2">Experience</h2>
-        {experiences.length ? experiences.map((exp, idx) => (
-          <div key={idx} className="mb-3">
-            <p className="font-semibold">
-              {exp.companyUrl ? (
-                <a
-                  href={exp.companyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-700 hover:underline"
-                >
-                  {exp.role} - {exp.companyName}
-                </a>
-              ) : (
-                `${exp.role} - ${exp.companyName}`
-              )}
-            </p>
-            <p className="text-xs text-gray-600">{exp.duration}</p>
-            <ul className="list-disc list-inside ml-4 text-sm mt-1">
-              {exp.summaryPoints?.map((point, i) => (
-                <li key={i}>{point}</li>
-              ))}
-            </ul>
-          </div>
-        )) : <p className="text-sm text-gray-500">No experience details available.</p>}
-      </section>
-
-      <div className="border-t-2 border-gray-800 my-4"></div>
-
-      {/* Projects */}
-      <section className="mb-4">
-        <h2 className="text-lg font-semibold mb-2">Projects</h2>
-        {projects.length ? projects.map((proj, idx) => (
-          <div key={idx} className="mb-2">
-            <p className="font-semibold">
-              {proj.projectUrl ? (
-                <a
-                  href={proj.projectUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-700 hover:underline"
-                >
-                  {proj.title}
-                </a>
-              ) : (
-                proj.title
-              )}
-            </p>
-            <p className="text-sm">{proj.description}</p>
-            {proj.githubUrl && (
-              <p className="text-xs mt-1">
-                Code: <a href={proj.githubUrl} target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline">{proj.githubUrl}</a>
-              </p>
-            )}
-          </div>
-        )) : <p className="text-sm text-gray-500">No projects available.</p>}
-      </section>
-
-      <div className="border-t-2 border-gray-800 my-4"></div>
-
-      {/* Skills */}
-      {skills.length > 0 && (
-        <section className="mb-4">
-          <h2 className="text-lg font-semibold mb-2">Skills</h2>
-          <div className="flex flex-wrap gap-2 text-sm">
-            {skills.map((skill, idx) => (
-              <span key={idx} className="px-2 py-1 bg-gray-200 rounded">{skill}</span>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {skills.length > 0 && <div className="border-t-2 border-gray-800 my-4"></div>}
-
-      {/* Certifications */}
-      {certificates.length > 0 && (
-        <section className="mb-4">
-          <h2 className="text-lg font-semibold mb-2">Certifications</h2>
-          {certificates.map((cert, idx) => (
-            <div key={idx} className="mb-1">
-              {cert.url ? (
-                <a
-                  href={cert.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-blue-700 hover:underline"
-                >
-                  {cert.title}
-                </a>
-              ) : (
-                <p className="font-semibold">{cert.title}</p>
-              )}
-              <p className="text-xs italic text-gray-600">
-                {cert.issuer} — {new Date(cert.issueDate).toLocaleDateString()}
-              </p>
-            </div>
-          ))}
-        </section>
-      )}
-    </div>
-      
-       {/* <div className="flex justify-center p-2 mb-4 print:hidden">
-        <button
-          onClick={handleDownload}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded shadow"
+      {/* Theme Selector */}
+      <div className="flex justify-center mt-10 pb-10">
+        <select
+          value={selectedTheme}
+          onChange={(e) => setSelectedTheme(e.target.value)}
+          className="px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
         >
-          Download PDF
-        </button>
-      </div> */}
-    {/* <div className="p-4">
-      <ResumePreview selectedThemeKey="india" userData={userData}/>
-    </div> */}
+          <option value="classic">Classic (Default)</option>
+          <option value="modern">Modern</option>
+          <option value="research">Research</option>
+          <option value="student">Student</option>
+          <option value="itProfessional">IT Professional</option>
+          <option value="india">India</option>
+          <option value="us">US</option>
+          <option value="canada">Canada</option>
+          <option value="germany">Germany</option>
+          <option value="europe">Europe</option>
+          <option value="uk">UK</option>
+          <option value="australia">Australia</option>
+          <option value="japan">Japan</option>
+        </select>
+      </div>
     </div>
-    
   );
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-const EuropeEuropass = () => {
+const EuropeResume = () => {
   const { userData } = useSelector((state) => state.userState);
   const {
     resume: {
@@ -157,4 +157,4 @@ const EuropeEuropass = () => {
   );
 };
 
-export default EuropeEuropass;
+export default EuropeResume;
