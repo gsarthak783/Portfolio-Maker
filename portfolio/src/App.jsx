@@ -30,6 +30,7 @@ import AustraliaResume from './ResumeThemes/AustraliaResume'
 import ModernResume from './ResumeThemes/ModernResume'
 import ClassicResume from './ResumeThemes/ClassisResume'
 import EuropeResume from './ResumeThemes/EuropeResume'
+import PageNotFound from './pages/PageNotFound'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -49,7 +50,7 @@ function AppLayout() {
 
   return (
     <>
-      {userData!== undefined && <Navbar />}
+      {isNotFound && <Navbar />}
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/:email" element={<Portfolio />} />
@@ -75,8 +76,10 @@ function AppLayout() {
         <Route path="/:email/resume-modern" element={<ModernResume />} />
         <Route path="/:email/resume-classic" element={<ClassicResume />} />
 
-       
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
+
+       
       {!isNotFound && <Footer />}
     </>
   )
